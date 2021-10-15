@@ -1,5 +1,5 @@
 {
-  "name": "react-native-mlkit-image-labeling",
+  "name": "@react-native-mlkit/image-labeling",
   "title": "React Native Mlkit Image Labeling",
   "version": "1.0.0",
   "description": "TODO",
@@ -9,15 +9,15 @@
     "android",
     "index.js",
     "ios",
-    "react-native-mlkit-image-labeling.podspec"
+    "RNMLKitImageLabeling.podspec"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/a7med-mahmoud/react-native-mlkit-image-labeling.git",
-    "baseUrl": "https://github.com/a7med-mahmoud/react-native-mlkit-image-labeling"
+    "url": "git+https://github.com/a7med-mahmoud/react-native-mlkit.git",
+    "baseUrl": "https://github.com/a7med-mahmoud/react-native-mlkit"
   },
   "keywords": [
     "react-native"
