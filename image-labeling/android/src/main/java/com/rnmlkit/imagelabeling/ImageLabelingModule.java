@@ -2,10 +2,27 @@
 
 package com.rnmlkit.imagelabeling;
 
+import android.net.Uri;
+
+import androidx.annotation.NonNull;
+
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableMap;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.label.ImageLabel;
+import com.google.mlkit.vision.label.ImageLabeler;
+import com.google.mlkit.vision.label.ImageLabeling;
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 public class ImageLabelingModule extends ReactContextBaseJavaModule {
 
@@ -22,8 +39,41 @@ public class ImageLabelingModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void sampleMethod(String stringArgument, int numberArgument, Callback callback) {
-        // TODO: Implement some actually useful functionality
-        callback.invoke("Received numberArgument: " + numberArgument + " stringArgument: " + stringArgument);
+    public void label(String url, Promise promise) {
+        Uri uri = Uri.parse(url);
+        InputImage image;
+        try {
+            image = InputImage.fromFilePath(reactContext, uri);
+            ImageLabelerOptions options =
+                    new ImageLabelerOptions.Builder()
+                            .setConfidenceThreshold(0.5f)
+                            .build();
+            ImageLabeler labeler = ImageLabeling.getClient(options);
+            labeler.process(image)
+                    .addOnSuccessListener(new OnSuccessListener<List<ImageLabel>>() {
+                        @Override
+                        public void onSuccess(List<ImageLabel> labels) {
+                            WritableArray result = Arguments.createArray();
+                            for (ImageLabel label : labels) {
+                                WritableMap map = Arguments.createMap();
+                                map.putString("text", label.getText());
+                                map.putDouble("confidence", label.getConfidence());
+                                map.putInt("index", label.getIndex());
+                                result.pushMap(map);
+                            }
+                            promise.resolve(result);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                            promise.reject("Image labeling failed", e);
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+            promise.reject("Image labeling failed", e);
+        }
     }
 }

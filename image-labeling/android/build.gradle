@@ -56,6 +56,7 @@ android {
 }
 
 repositories {
+    mavenCentral()
     // ref: https://www.baeldung.com/maven-local-repository
     mavenLocal()
     maven {
@@ -72,6 +73,7 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+    implementation 'com.google.mlkit:image-labeling:17.0.5'
 }
 
 def configureReactNativePom(def pom) {

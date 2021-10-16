@@ -9,7 +9,9 @@ const App = () => {
   const handlePress = async () => {
     setLabels([]);
     const image = await ImagePicker.openPicker({ mediaType: 'photo' });
-    const result = await ImageLabeling.label(image.sourceURL);
+    console.log(image.path);
+    const result = await ImageLabeling.label(image.path);
+    console.log(result);
     setLabels(result);
   };
 
