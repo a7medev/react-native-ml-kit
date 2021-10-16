@@ -1,0 +1,36 @@
+{
+  "name": "@react-native-ml-kit/identify-languages",
+  "title": "React Native MLKit Identify Languages",
+  "version": "1.0.0",
+  "description": "React Native On-Device Identifying Languages w/ Google ML Kit",
+  "main": "index.js",
+  "files": [
+    "README.md",
+    "android",
+    "index.js",
+    "ios",
+    "RNMLKitIdentifyLanguages.podspec"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a7med-mahmoud/react-native-ml-kit.git",
+    "baseUrl": "https://github.com/a7med-mahmoud/react-native-ml-kit"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": {
+    "name": "Ahmed Mahmoud",
+    "email": "a7med.mahmoud2004@gmail.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": ">=16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  }
+}
