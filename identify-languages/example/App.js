@@ -8,6 +8,11 @@ const App = () => {
 
   useEffect(() => {
     IdentifyLanguages.identify(text).then(setLang).catch(console.error);
+    IdentifyLanguages.identifyPossible(text)
+      .then(identifiedLangs => {
+        console.log(identifiedLangs);
+      })
+      .catch(console.error);
   }, [text]);
 
   return (
