@@ -19,7 +19,7 @@ const App = () => {
 
       {labels.length > 0 && <Text style={styles.heading}>Labels</Text>}
       {labels.map(label => (
-        <View style={styles.label}>
+        <View style={styles.label} key={label}>
           <Text>
             {label.text} - {label.confidence.toFixed(2)}%
           </Text>
