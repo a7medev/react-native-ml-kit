@@ -1,6 +1,6 @@
 # @react-native-ml-kit/identify-languages
 
-React Native On-Device Identifying Languages w/ Google ML Kit
+React Native On-Device Language Identification w/ Google ML Kit
 
 > **⚠ WARNING: Don't use this in production.**  
 > This package is still in alpha release, so it's not recommended to use it in production until it's fully stable, although using it for testing perposes is helpful.
