@@ -25,6 +25,5 @@ On iOS, use CocoaPods to add the native RNMLKitImageLabeling to your project:
 ```javascript
 import ImageLabeling from '@react-native-mlkit/image-labeling';
 
-// TODO: What to do with the module?
-ImageLabeling;
+const labels = await ImageLabeling.label(imageURL);
 ```
