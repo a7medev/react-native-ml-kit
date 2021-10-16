@@ -1,5 +1,10 @@
 # @react-native-mlkit/image-labeling
 
+React Native On-Device Image Labeling w/ Google ML Kit
+
+> **⚠ WARNING: Don't use this in production.**  
+> This package is still in alpha release, so it's not recommended to use it in production until it's fully stable, although using it for testing perposes is helpful.
+
 ## Getting started
 
 `npm install @react-native-mlkit/image-labeling --save`
