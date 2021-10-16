@@ -30,5 +30,7 @@ On iOS, use CocoaPods to add the native RNMLKitIdentifyLanguages to your project
 ```javascript
 import IdentifyLanguages from '@react-native-ml-kit/identify-languages';
 
-// TODO: add usage examples
+const lang = await IdentifyLanguages.identify('Ciao'); // "it" (Italian)
+
+const possibleLangs = await IdentifyLanguages.identifyPossible('Ciao'); // [{ "language": "it", "confidence": 0.9789841771125793 }, { "confidence": 0.012451663613319397, "language": "zh-Latn" }]
 ```
