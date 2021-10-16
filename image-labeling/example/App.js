@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, Button, StyleSheet, View } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import ImageLabeling from '@react-native-mlkit/image-labeling';
+import ImageLabeling from '@react-native-ml-kit/image-labeling';
 
 const App = () => {
   const [labels, setLabels] = useState([]);
