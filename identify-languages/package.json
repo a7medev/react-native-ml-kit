@@ -1,7 +1,7 @@
 {
   "name": "@react-native-ml-kit/identify-languages",
   "title": "React Native MLKit Identify Languages",
-  "version": "1.0.0-alpha",
+  "version": "1.0.1-alpha",
   "description": "React Native On-Device Language Identification w/ Google ML Kit",
   "main": "index.js",
   "files": [
