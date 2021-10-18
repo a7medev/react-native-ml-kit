@@ -34,10 +34,8 @@ RCT_EXPORT_MODULE()
     return @{
         @"width": @(frame.size.width),
         @"height": @(frame.size.height),
-        @"origin": @{
-            @"x": @(frame.origin.x),
-            @"y": @(frame.origin.y)
-        }
+        @"top": @(frame.origin.x),
+        @"left": @(frame.origin.y)
     };
 }
 
@@ -48,12 +46,12 @@ RCT_EXPORT_MODULE()
     };
 }
 
-- (NSArray<NSDictionary*>*)pointsToDict: (NSArray<MLKVisionPoint*>*)points {
-    NSMutableArray *result = [NSMutableArray array];
-    for (MLKVisionPoint *point in points) {
-        [result addObject:[self pointToDict:point]];
+- (NSDictionary*)contourToDict: (MLKFaceContour*)contour {
+    NSMutableArray *points = [NSMutableArray array];
+    for (MLKVisionPoint *point in contour.points) {
+        [points addObject:[self pointToDict:point]];
     }
-    return result;
+    return @{ "points": points };
 }
 
 - (NSDictionary*)landmarkToDict: (MLKFaceLandmark*)landmark {
@@ -140,77 +138,77 @@ RCT_EXPORT_MODULE()
 
         MLKFaceContour *faceContour = [face contourOfType:MLKFaceContourTypeFace];
         if (faceContour != nil) {
-            [contours setObject:[self pointsToDict:faceContour.points] forKey:@"face"];
+            [contours setObject:[self contourToDict:faceContour] forKey:@"face"];
         }
 
         MLKFaceContour *leftEye = [face contourOfType:MLKFaceContourTypeLeftEye];
         if (leftEye != nil) {
-            [contours setObject:[self pointsToDict:leftEye.points] forKey:@"leftEye"];
+            [contours setObject:[self contourToDict:leftEye] forKey:@"leftEye"];
         }
         
         MLKFaceContour *rightEye = [face contourOfType:MLKFaceContourTypeRightEye];
         if (rightEye != nil) {
-            [contours setObject:[self pointsToDict:rightEye.points] forKey:@"rightEye"];
+            [contours setObject:[self contourToDict:rightEye] forKey:@"rightEye"];
         }
         
         MLKFaceContour *leftCheek = [face contourOfType:MLKFaceContourTypeLeftCheek];
         if (leftCheek != nil) {
-            [contours setObject:[self pointsToDict:leftCheek.points] forKey:@"leftCheek"];
+            [contours setObject:[self contourToDict:leftCheek] forKey:@"leftCheek"];
         }
         
         MLKFaceContour *rightCheek = [face contourOfType:MLKFaceContourTypeRightCheek];
         if (rightCheek != nil) {
-            [contours setObject:[self pointsToDict:rightCheek.points] forKey:@"rightCheek"];
+            [contours setObject:[self contourToDict:rightCheek] forKey:@"rightCheek"];
         }
         
         MLKFaceContour *noseBottom = [face contourOfType:MLKFaceContourTypeNoseBottom];
         if (noseBottom != nil) {
-            [contours setObject:[self pointsToDict:noseBottom.points] forKey:@"noseBottom"];
+            [contours setObject:[self contourToDict:noseBottom] forKey:@"noseBottom"];
         }
         
         MLKFaceContour *noseBridge = [face contourOfType:MLKFaceContourTypeNoseBridge];
         if (noseBridge != nil) {
-            [contours setObject:[self pointsToDict:noseBridge.points] forKey:@"noseBridge"];
+            [contours setObject:[self contourToDict:noseBridge] forKey:@"noseBridge"];
         }
         
         MLKFaceContour *leftEyebrowTop = [face contourOfType:MLKFaceContourTypeLeftEyebrowTop];
         if (leftEyebrowTop != nil) {
-            [contours setObject:[self pointsToDict:leftEyebrowTop.points] forKey:@"leftEyebrowTop"];
+            [contours setObject:[self contourToDict:leftEyebrowTop] forKey:@"leftEyebrowTop"];
         }
         
         MLKFaceContour *rightEyebrowTop = [face contourOfType:MLKFaceContourTypeRightEyebrowTop];
         if (rightEyebrowTop != nil) {
-            [contours setObject:[self pointsToDict:rightEyebrowTop.points] forKey:@"rightEyebrowTop"];
+            [contours setObject:[self contourToDict:rightEyebrowTop] forKey:@"rightEyebrowTop"];
         }
         
         MLKFaceContour *leftEyebrowBottom = [face contourOfType:MLKFaceContourTypeLeftEyebrowBottom];
         if (leftEyebrowBottom != nil) {
-            [contours setObject:[self pointsToDict:leftEyebrowBottom.points] forKey:@"leftEyebrowBottom"];
+            [contours setObject:[self contourToDict:leftEyebrowBottom] forKey:@"leftEyebrowBottom"];
         }
         
         MLKFaceContour *rightEyebrowBottom = [face contourOfType:MLKFaceContourTypeRightEyebrowBottom];
         if (rightEyebrowBottom != nil) {
-            [contours setObject:[self pointsToDict:rightEyebrowBottom.points] forKey:@"rightEyebrowBottom"];
+            [contours setObject:[self contourToDict:rightEyebrowBottom] forKey:@"rightEyebrowBottom"];
         }
 
         MLKFaceContour *upperLipTop = [face contourOfType:MLKFaceContourTypeUpperLipTop];
         if (upperLipTop != nil) {
-            [contours setObject:[self pointsToDict:upperLipTop.points] forKey:@"upperLipTop"];
+            [contours setObject:[self contourToDict:upperLipTop] forKey:@"upperLipTop"];
         }
         
         MLKFaceContour *lowerLipTop = [face contourOfType:MLKFaceContourTypeLowerLipTop];
         if (lowerLipTop != nil) {
-            [contours setObject:[self pointsToDict:lowerLipTop.points] forKey:@"lowerLipTop"];
+            [contours setObject:[self contourToDict:lowerLipTop] forKey:@"lowerLipTop"];
         }
         
         MLKFaceContour *upperLipBottom = [face contourOfType:MLKFaceContourTypeUpperLipBottom];
         if (upperLipBottom != nil) {
-            [contours setObject:[self pointsToDict:upperLipBottom.points] forKey:@"upperLipBottom"];
+            [contours setObject:[self contourToDict:upperLipBottom] forKey:@"upperLipBottom"];
         }
         
         MLKFaceContour *lowerLipBottom = [face contourOfType:MLKFaceContourTypeLowerLipBottom];
         if (lowerLipBottom != nil) {
-            [contours setObject:[self pointsToDict:lowerLipBottom.points] forKey:@"lowerLipBottom"];
+            [contours setObject:[self contourToDict:lowerLipBottom.points] forKey:@"lowerLipBottom"];
         }
         
         [dict setObject:contours forKey:@"contours"];

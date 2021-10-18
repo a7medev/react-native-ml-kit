@@ -31,6 +31,7 @@ buildscript {
     // ref: https://docs.gradle.org/current/userguide/tutorial_using_tasks.html#sec:build_script_external_dependencies
     if (project == rootProject) {
         repositories {
+            mavenCentral()
             google()
         }
         dependencies {
@@ -56,6 +57,7 @@ android {
 }
 
 repositories {
+    mavenCentral()
     // ref: https://www.baeldung.com/maven-local-repository
     mavenLocal()
     maven {
@@ -72,6 +74,7 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+    implementation 'com.google.mlkit:face-detection:16.1.2'
 }
 
 def configureReactNativePom(def pom) {
