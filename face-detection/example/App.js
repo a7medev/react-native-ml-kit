@@ -20,6 +20,7 @@ const App = () => {
 
     const result = await FaceDetection.detect('file://' + _image.path, {
       landmarkMode: 'all',
+      trackingEnabled: true,
     });
     setFaces(result);
   };
@@ -42,34 +43,35 @@ const App = () => {
                   {
                     width: face.frame.width,
                     height: face.frame.height,
-                    top: face.frame.origin.y,
-                    left: face.frame.origin.x,
+                    top: face.frame.top,
+                    left: face.frame.left,
                   },
-                ]}
-              />
+                ]}>
+                <Text style={{ color: 'red' }}>ID: {face.trackingID}</Text>
+              </View>
 
               {face.landmarks.leftEye && (
-                <Text
-                  style={{
-                    position: 'absolute',
-                    top: face.landmarks.leftEye.position.y - 10,
-                    left: face.landmarks.leftEye.position.x - 20,
-                    color: 'yellow',
-                  }}>
-                  Left Eye
-                </Text>
+                <View
+                  style={[
+                    styles.landmark,
+                    {
+                      top: face.landmarks.leftEye.position.y - 5,
+                      left: face.landmarks.leftEye.position.x - 5,
+                    },
+                  ]}
+                />
               )}
 
               {face.landmarks.rightEye && (
-                <Text
-                  style={{
-                    position: 'absolute',
-                    top: face.landmarks.rightEye.position.y - 10,
-                    left: face.landmarks.rightEye.position.x - 20,
-                    color: 'yellow',
-                  }}>
-                  Right Eye
-                </Text>
+                <View
+                  style={[
+                    styles.landmark,
+                    {
+                      top: face.landmarks.rightEye.position.y - 5,
+                      left: face.landmarks.rightEye.position.x - 5,
+                    },
+                  ]}
+                />
               )}
             </>
           ))}
@@ -86,8 +88,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   frame: {
-    borderColor: 'red',
-    borderWidth: 5,
+    position: 'absolute',
+    borderColor: 'white',
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+  landmark: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: 'yellow',
     position: 'absolute',
   },
 });
