@@ -20,7 +20,6 @@ const App = () => {
 
     const result = await FaceDetection.detect('file://' + _image.path, {
       landmarkMode: 'all',
-      trackingEnabled: true,
     });
     setFaces(result);
   };
@@ -46,9 +45,8 @@ const App = () => {
                     top: face.frame.top,
                     left: face.frame.left,
                   },
-                ]}>
-                <Text style={{ color: 'red' }}>ID: {face.trackingID}</Text>
-              </View>
+                ]}
+              />
 
               {face.landmarks.leftEye && (
                 <View
