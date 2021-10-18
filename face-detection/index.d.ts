@@ -94,6 +94,8 @@ export interface FaceDetectionOptions {
   minFaceSize?: number;
 
   /**
+   * **(COMING SOON)**
+   *
    * Whether or not to assign faces an ID, which can be used to track faces across images.
    *
    * Note that when contour detection is enabled, only one face is detected, so face tracking doesn't produce useful results. For this reason, and to improve detection speed, don't enable both contour detection and face tracking.
