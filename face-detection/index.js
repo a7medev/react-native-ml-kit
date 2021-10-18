@@ -17,4 +17,6 @@ const FaceDetection = NativeModules.FaceDetection
       }
     );
 
-export default FaceDetection;
+export default {
+  detect: (imageURL, options = {}) => FaceDetection.detect(imageURL, options),
+};
