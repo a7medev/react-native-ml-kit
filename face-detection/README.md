@@ -30,5 +30,5 @@ On iOS, use CocoaPods to add the native RNMLKitFaceDetection to your project:
 ```javascript
 import FaceDetection from '@react-native-ml-kit/face-detection';
 
-// TODO: add example
+const faces = FaceDetection.detect(imageURL, { landmarkMode: 'all' });
 ```
