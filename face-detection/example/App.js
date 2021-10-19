@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, View } from 'react-native';
+import { Button, Image, StyleSheet, View, Switch, Text } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import FaceDetection from '@react-native-ml-kit/face-detection';
 
@@ -8,6 +8,9 @@ import FaceMap from './FaceMap';
 const App = () => {
   const [image, setImage] = useState();
   const [faces, setFaces] = useState([]);
+  const [hideFrame, setHideFrame] = useState(false);
+  const [showLandmarks, setShowLandmarks] = useState(false);
+  const [showContours, setShowContours] = useState(false);
 
   const handlePress = async () => {
     setFaces([]);
@@ -44,11 +47,24 @@ const App = () => {
               face={face}
               width={image.width}
               height={image.height}
-              hideFrame
-              showContours
-              showLandmarks
+              hideFrame={hideFrame}
+              showContours={showContours}
+              showLandmarks={showLandmarks}
             />
           ))}
+
+          <View style={styles.switchContainer}>
+            <Switch value={hideFrame} onValueChange={setHideFrame} />
+            <Text style={styles.switchLabel}>Hide Frame</Text>
+          </View>
+          <View style={styles.switchContainer}>
+            <Switch value={showLandmarks} onValueChange={setShowLandmarks} />
+            <Text style={styles.switchLabel}>Show Landmarks</Text>
+          </View>
+          <View style={styles.switchContainer}>
+            <Switch value={showContours} onValueChange={setShowContours} />
+            <Text style={styles.switchLabel}>Show Contours</Text>
+          </View>
         </View>
       )}
     </View>
@@ -61,24 +77,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  frame: {
-    position: 'absolute',
-    borderColor: 'white',
-    borderWidth: 2,
-    borderRadius: 5,
-  },
-  landmark: {
-    width: 7,
-    height: 7,
-    transform: [{ rotate: '45deg' }],
-    backgroundColor: 'yellow',
-    position: 'absolute',
-  },
   image: {
     borderRadius: 10,
   },
   imageContainer: {
     marginTop: 15,
+    marginBottom: 20,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  switchLabel: {
+    color: '#333',
   },
 });
 
