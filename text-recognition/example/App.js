@@ -17,6 +17,7 @@ const App = () => {
     const _image = await ImagePicker.openPicker({
       mediaType: 'photo',
       width: 350,
+      height: 200,
       cropping: true,
     });
     setImage(_image);
