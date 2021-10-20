@@ -27,7 +27,7 @@ On iOS, use CocoaPods to add the native RNMLKitTextRecognition to your project:
 
 ### (Android) Install-time model download
 
-**Optional but recommended:** You can configure your app to automatically download the ML model to the device after your app is installed from the Play Store. To do so, add the following declaration to your app's AndroidManifest.xml file:
+**Optional but recommended:** You can configure your app to automatically download the ML model to the device after your app is installed from the Play Store. To do so, add the following declaration to your `android/app/src/main/AndroidManifest.xml` file:
 
 ```xml
 <application ...>
