@@ -10,9 +10,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-ml-kit/text-recognition": "link:../",
     "react": "17.0.2",
     "react-native": "0.66.1",
-    "@react-native-ml-kit/text-recognition": "link:../"
+    "react-native-image-crop-picker": "^0.36.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -1,47 +1,85 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, Image, StyleSheet, View, Switch, Text } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
 import TextRecognition from '@react-native-ml-kit/text-recognition';
 
-export default class App extends Component {
-  state = {
-    status: 'starting',
-    message: '--',
-  };
-  componentDidMount() {
-    TextRecognition.sampleMethod('Testing', 123, message => {
-      this.setState({
-        status: 'native callback received',
-        message,
-      });
+import TextMap from './TextMap';
+
+const App = () => {
+  const [image, setImage] = useState();
+  const [result, setResult] = useState();
+  const [showBlocks, setShowBlocks] = useState(true);
+  const [showWords, setShowWords] = useState(false);
+
+  const handlePress = async () => {
+    setResult(undefined);
+
+    const _image = await ImagePicker.openPicker({
+      mediaType: 'photo',
+      width: 350,
+      cropping: true,
     });
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>☆TextRecognition example☆</Text>
-        <Text style={styles.instructions}>STATUS: {this.state.status}</Text>
-        <Text style={styles.welcome}>☆NATIVE CALLBACK MESSAGE☆</Text>
-        <Text style={styles.instructions}>{this.state.message}</Text>
-      </View>
-    );
-  }
-}
+    setImage(_image);
+
+    const _result = await TextRecognition.recognize('file://' + _image.path);
+    setResult(_result);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Button title="Choose an Image" onPress={handlePress} />
+
+      {image && (
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: image.path }}
+            style={[styles.image, { height: image.height, width: image.width }]}
+          />
+
+          {result && (
+            <TextMap
+              blocks={result.blocks}
+              showBlocks={showBlocks}
+              showWords={showWords}
+            />
+          )}
+
+          <View style={styles.switchContainer}>
+            <Switch value={showBlocks} onValueChange={setShowBlocks} />
+            <Text style={styles.switchLabel}>Show Blocks</Text>
+          </View>
+          <View style={styles.switchContainer}>
+            <Switch value={showWords} onValueChange={setShowWords} />
+            <Text style={styles.switchLabel}>Show Words</Text>
+          </View>
+        </View>
+      )}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  image: {
+    borderRadius: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  imageContainer: {
+    marginTop: 15,
+    marginBottom: 20,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  switchLabel: {
+    color: '#333',
+    marginLeft: 15,
   },
 });
+
+export default App;
