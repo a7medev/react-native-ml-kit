@@ -9,7 +9,7 @@ React Native On-Device Machine Learning w/ Google ML Kit
 | [Image Labeling](./image-labeling)         |   ✅    | ✅  |
 | [Identify Languages](./identify-languages) |   ✅    | ✅  |
 | [Face Detection](./face-detection)         |   ✅    | ✅  |
-| [Text Recognition](./text-recognition)     |   ❌    | ❌  |
+| [Text Recognition](./text-recognition)     |   ❌    | ✅  |
 | Barcode Scanning                           |   ❌    | ❌  |
 | Object Detection and Tracking              |   ❌    | ❌  |
 | Translate Text                             |   ❌    | ❌  |
