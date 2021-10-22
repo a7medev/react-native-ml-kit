@@ -1,7 +1,7 @@
 {
   "name": "@react-native-ml-kit/text-recognition",
   "title": "React Native ML Kit Text Recognition",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha",
   "description": "React Native On-Device Text Recognition w/ Google ML Kit",
   "main": "index.js",
   "files": [
