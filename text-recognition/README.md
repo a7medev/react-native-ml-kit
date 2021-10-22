@@ -25,22 +25,6 @@ On iOS, use CocoaPods to add the native RNMLKitTextRecognition to your project:
 
 `npx pod-install`
 
-### (Android) Install-time model download
-
-**Optional but recommended:** You can configure your app to automatically download the ML model to the device after your app is installed from the Play Store. To do so, add the following declaration to your `android/app/src/main/AndroidManifest.xml` file:
-
-```xml
-<application ...>
-  ...
-  <meta-data
-      android:name="com.google.mlkit.vision.DEPENDENCIES"
-      android:value="ocr" />
-  <!-- To use multiple models: android:value="ocr,model2,model3" -->
-</application>
-```
-
-If you do not enable install-time model downloads, the model will be downloaded the first time you run the on-device detector. Requests you make before the download has completed will produce no results.
-
 ## Usage
 
 ```javascript
