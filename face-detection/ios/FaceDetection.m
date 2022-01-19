@@ -51,7 +51,7 @@ RCT_EXPORT_MODULE()
     for (MLKVisionPoint *point in contour.points) {
         [points addObject:[self pointToDict:point]];
     }
-    return @{ "points": points };
+    return @{ @"points": points };
 }
 
 - (NSDictionary*)landmarkToDict: (MLKFaceLandmark*)landmark {
