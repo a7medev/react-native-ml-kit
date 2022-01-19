@@ -208,7 +208,7 @@ RCT_EXPORT_MODULE()
         
         MLKFaceContour *lowerLipBottom = [face contourOfType:MLKFaceContourTypeLowerLipBottom];
         if (lowerLipBottom != nil) {
-            [contours setObject:[self contourToDict:lowerLipBottom.points] forKey:@"lowerLipBottom"];
+            [contours setObject:[self contourToDict:lowerLipBottom] forKey:@"lowerLipBottom"];
         }
         
         [dict setObject:contours forKey:@"contours"];
