@@ -34,8 +34,8 @@ RCT_EXPORT_MODULE()
     return @{
         @"width": @(frame.size.width),
         @"height": @(frame.size.height),
-        @"top": @(frame.origin.x),
-        @"left": @(frame.origin.y)
+        @"left": @(frame.origin.x),
+        @"top": @(frame.origin.y)
     };
 }
 
