@@ -34,8 +34,8 @@ RCT_EXPORT_MODULE()
     return @{
         @"width": @(frame.size.width),
         @"height": @(frame.size.height),
-        @"top": @(frame.origin.x),
-        @"left": @(frame.origin.y)
+        @"left": @(frame.origin.x),
+        @"top": @(frame.origin.y)
     };
 }
 
@@ -51,7 +51,7 @@ RCT_EXPORT_MODULE()
     for (MLKVisionPoint *point in contour.points) {
         [points addObject:[self pointToDict:point]];
     }
-    return @{ "points": points };
+    return @{ @"points": points };
 }
 
 - (NSDictionary*)landmarkToDict: (MLKFaceLandmark*)landmark {
@@ -208,7 +208,7 @@ RCT_EXPORT_MODULE()
         
         MLKFaceContour *lowerLipBottom = [face contourOfType:MLKFaceContourTypeLowerLipBottom];
         if (lowerLipBottom != nil) {
-            [contours setObject:[self contourToDict:lowerLipBottom.points] forKey:@"lowerLipBottom"];
+            [contours setObject:[self contourToDict:lowerLipBottom] forKey:@"lowerLipBottom"];
         }
         
         [dict setObject:contours forKey:@"contours"];
