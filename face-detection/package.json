@@ -1,9 +1,10 @@
 {
   "name": "@react-native-ml-kit/face-detection",
   "title": "React Native MLKit Face Detection",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0",
   "description": "React Native On-Device Face Detection w/ Google ML Kit",
   "main": "index.js",
+  "types": "index.d.ts",
   "files": [
     "README.md",
     "android",
