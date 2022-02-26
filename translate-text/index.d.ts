@@ -60,10 +60,46 @@ export enum TranslateLanguage {
   WELSH = 'cy',
 }
 
-interface TranslateTextResult {}
+export interface TranslateTextResult {}
+
+export interface TranslateTextOptions {
+  /** Text to translate */
+  text: string;
+
+  /** Source language (Language code to translate from) */
+  sourceLanguage: TranslateLanguage;
+
+  /** Target language (Language code to translate to) */
+  targetLanguage: TranslateLanguage;
+
+  /**
+   * Whether or not to download the model if needed
+   *
+   * @default false
+   */
+  downloadModelIfNeeded?: boolean;
+
+  /**
+   * Whether or not to download model *only using WiFi*
+   *
+   * @requires `downloadModelIfNeeded` to be `true`
+   * @default false
+   */
+  requireWifi?: boolean;
+
+  /**
+   * Whether or not to download model *only while charging*
+   *
+   * **Note:** _This will only work on Android >= 24_
+   *
+   * @requires `downloadModelIfNeeded` to be `true`
+   * @default false
+   */
+  requireCharging?: boolean;
+}
 
 interface ITranslateText {
-  translate: () => Promise<TranslateTextResult>;
+  translate: (options: TranslateTextOptions) => Promise<TranslateTextResult>;
 }
 
 declare const TranslateText: ITranslateText;

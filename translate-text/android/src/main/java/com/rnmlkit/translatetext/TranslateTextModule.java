@@ -1,11 +1,21 @@
-// TranslateTextModule.java
-
 package com.rnmlkit.translatetext;
 
+import android.os.Build;
+
+import androidx.annotation.NonNull;
+
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.ReadableMap;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.mlkit.common.model.DownloadConditions;
+import com.google.mlkit.nl.translate.TranslateLanguage;
+import com.google.mlkit.nl.translate.Translation;
+import com.google.mlkit.nl.translate.Translator;
+import com.google.mlkit.nl.translate.TranslatorOptions;
 
 public class TranslateTextModule extends ReactContextBaseJavaModule {
 
@@ -22,8 +32,56 @@ public class TranslateTextModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void sampleMethod(String stringArgument, int numberArgument, Callback callback) {
-        // TODO: Implement some actually useful functionality
-        callback.invoke("Received numberArgument: " + numberArgument + " stringArgument: " + stringArgument);
+    public void translate(final ReadableMap optionsMap, final Promise promise) {
+        String text = optionsMap.getString("text");
+        if (text == null) {
+            promise.reject("TEXT_TRANSLATE_FAILED", "Text cannot be null");
+            return;
+        }
+        String sourceLanguage = optionsMap.getString("sourceLanguage");
+        String targetLanguage = optionsMap.getString("targetLanguage");
+        if (sourceLanguage != null) {
+            sourceLanguage = TranslateLanguage.fromLanguageTag(sourceLanguage);
+        }
+        if (targetLanguage != null) {
+            targetLanguage = TranslateLanguage.fromLanguageTag(targetLanguage);
+        }
+        if (sourceLanguage == null) {
+            promise.reject("TEXT_TRANSLATE_FAILED", "Source language cannot be null");
+            return;
+        }
+        if (targetLanguage == null) {
+            promise.reject("TEXT_TRANSLATE_FAILED", "Target language cannot be null");
+            return;
+        }
+        TranslatorOptions options = new TranslatorOptions.Builder()
+                .setSourceLanguage(sourceLanguage)
+                .setTargetLanguage(targetLanguage)
+                .build();
+        Translator translator = Translation.getClient(options);
+        if (optionsMap.getBoolean("downloadModelIfNeeded")) {
+            DownloadConditions.Builder conditions = new DownloadConditions.Builder();
+            if (optionsMap.getBoolean("requireWifi")) {
+                conditions.requireWifi();
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && optionsMap.getBoolean("requireCharging")) {
+                conditions.requireCharging();
+            }
+            translator.downloadModelIfNeeded(conditions.build())
+                    .addOnSuccessListener(
+                            new OnSuccessListener() {
+                                @Override
+                                public void onSuccess(Object o) {
+                                    // TODO: handle translation
+                                }
+                            })
+                    .addOnFailureListener(
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // TODO: handle failure
+                                }
+                            });
+        }
     }
 }
