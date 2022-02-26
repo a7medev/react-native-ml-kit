@@ -53,7 +53,7 @@ interface ITextRecognition {
    * @param imageURL The URL/Path of the image to process
    * @returns Text recognition result
    */
-  recognize: (imageURL: string) => Promise<TextRecognitionResult[]>;
+  recognize: (imageURL: string) => Promise<TextRecognitionResult>;
 }
 
 declare const TextRecognition: ITextRecognition;
