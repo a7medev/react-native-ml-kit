@@ -28,7 +28,14 @@ On iOS, use CocoaPods to add the native RNMLKitTranslateText to your project:
 ## Usage
 
 ```javascript
-import TranslateText from '@react-native-ml-kit/translate-text';
+import TranslateText, {
+  TranslateLanguage,
+} from '@react-native-ml-kit/translate-text';
 
-// TODO: add example
+const translatedText = await TranslateText.translate({
+  text: 'مرحبا بالعالم',
+  sourceLanguage: TranslateLanguage.ARABIC,
+  targetLanguage: TranslateLanguage.ENGLISH,
+  downloadModelIfNeeded: true,
+});
 ```
