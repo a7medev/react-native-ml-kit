@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
-import TranslateText from '@react-native-ml-kit/translate-text';
+import { View, Text, StyleSheet, TextInput, Alert, Button } from 'react-native';
+import TranslateText, {
+  TranslateLanguage,
+} from '@react-native-ml-kit/translate-text';
 
 const App = () => {
   const [text, setText] = useState('');
 
-  // TODO: add example usage
+  const handlePress = () => {
+    TranslateText.translate({
+      text,
+      sourceLanguage: TranslateLanguage.ENGLISH,
+      targetLanguage: TranslateLanguage.SPANISH,
+      downloadModelIfNeeded: true,
+    })
+      .then(result => {
+        Alert.alert(result);
+      })
+      .catch(error => {
+        Alert.alert(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -18,6 +33,7 @@ const App = () => {
         value={text}
         onChangeText={_text => setText(_text)}
       />
+      <Button title="Translate into Spanish" onPress={handlePress} />
     </View>
   );
 };
@@ -41,6 +57,7 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderWidth: 1,
     borderRadius: 5,
+    marginBottom: 10,
   },
 });
 

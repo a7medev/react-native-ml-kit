@@ -31,6 +31,29 @@ public class TranslateTextModule extends ReactContextBaseJavaModule {
         return "TranslateText";
     }
 
+    private void startTranslation(final Translator translator, final String text, final Promise promise) {
+        translator.translate(text)
+                .addOnSuccessListener(
+                        new OnSuccessListener<String>() {
+                            @Override
+                            public void onSuccess(String translatedText) {
+                                promise.resolve(translatedText);
+                                translator.close();
+                            }
+                        }
+                )
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                e.printStackTrace();
+                                translator.close();
+                                promise.reject("TEXT_TRANSLATE_FAILED", e);
+                            }
+                        }
+                );
+    }
+
     @ReactMethod
     public void translate(final ReadableMap optionsMap, final Promise promise) {
         String text = optionsMap.getString("text");
@@ -59,12 +82,12 @@ public class TranslateTextModule extends ReactContextBaseJavaModule {
                 .setTargetLanguage(targetLanguage)
                 .build();
         Translator translator = Translation.getClient(options);
-        if (optionsMap.getBoolean("downloadModelIfNeeded")) {
+        if (optionsMap.hasKey("downloadModelIfNeeded") && optionsMap.getBoolean("downloadModelIfNeeded")) {
             DownloadConditions.Builder conditions = new DownloadConditions.Builder();
-            if (optionsMap.getBoolean("requireWifi")) {
+            if (optionsMap.hasKey("requiresWifi") && optionsMap.getBoolean("requireWifi")) {
                 conditions.requireWifi();
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && optionsMap.getBoolean("requireCharging")) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && optionsMap.hasKey("requireCharging") && optionsMap.getBoolean("requireCharging")) {
                 conditions.requireCharging();
             }
             translator.downloadModelIfNeeded(conditions.build())
@@ -72,16 +95,19 @@ public class TranslateTextModule extends ReactContextBaseJavaModule {
                             new OnSuccessListener() {
                                 @Override
                                 public void onSuccess(Object o) {
-                                    // TODO: handle translation
+                                    startTranslation(translator, text, promise);
                                 }
                             })
                     .addOnFailureListener(
                             new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    // TODO: handle failure
+                                    e.printStackTrace();
+                                    promise.reject("TEXT_TRANSLATE_FAILED", e);
                                 }
                             });
+        } else {
+            startTranslation(translator, text, promise);
         }
     }
 }
