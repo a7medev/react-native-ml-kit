@@ -16,7 +16,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/s0rta/barcodescanner.git"
+    "url": "https://github.com/a7med-mahmoud/react-native-ml-kit.git"
+    "baseUrl": "https://github.com/a7med-mahmoud/react-native-ml-kit"
   },
   "keywords": [
     "react-native"
