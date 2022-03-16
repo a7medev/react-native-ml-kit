@@ -1,0 +1,35 @@
+{
+  "name": "barcode-scanning",
+  "title": "React Native ML Kit Barcode Scanning",
+  "version": "1.0.8",
+  "description": "React Native On-Device Barcode Scanning w/ Google ML Kit",
+  "main": "index.js",
+  "files": [
+    "README.md",
+    "android",
+    "index.js",
+    "RNMLKitBarcodeScanning.podspec",
+    "ios"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/s0rta/barcodescanner.git"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": {
+    "name": "JT Wright",
+    "email": "jacob.t.wright@protonmail.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": ">=16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  }
+}

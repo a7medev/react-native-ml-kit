@@ -1,0 +1,70 @@
+Arguments: 
+  /Users/yet/.nvm/versions/node/v16.13.2/bin/node /opt/homebrew/Cellar/yarn/1.22.17_2/libexec/bin/yarn.js publish
+
+PATH: 
+  /opt/homebrew/opt/openssl@3/bin:/opt/homebrew/Cellar/openjdk/17.0.2/bin:/opt/homebrew/opt/ruby/bin:/Users/yet/Library/Android/sdk/platform-tools:/Users/yet/.nvm/versions/node/v16.13.2/bin:/opt/homebrew/opt/openssl@3/bin:/Users/yet/.sdkman/candidates/java/current/bin:/Users/yet/.sdkman/candidates/gradle/current/bin:/opt/homebrew/Cellar/openjdk/17.0.2/bin:/opt/homebrew/opt/ruby/bin:/Users/yet/Library/Android/sdk/platform-tools:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/yet/Library/Android/sdk/emulator:/Users/yet/Library/Android/sdk/tools:/Users/yet/Library/Android/sdk/tools/binNDROID_HOME/platform-tools:/Users/yet/Library/Python/3.10/bin:/Users/yet/.local/bin:/opt/homebrew/opt/fzf/bin:/Users/yet/Library/Android/sdk/emulator:/Users/yet/Library/Android/sdk/tools:/Users/yet/Library/Android/sdk/tools/binNDROID_HOME/platform-tools:/Users/yet/Library/Python/3.10/bin:/Users/yet/.local/bin
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  16.13.2
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (/opt/homebrew/Cellar/yarn/1.22.17_2/libexec/lib/cli.js:137143:13)
+      at Interface.emit (node:events:390:28)
+      at Interface._ttyWrite (node:readline:1081:16)
+      at ReadStream.onkeypress (node:readline:288:10)
+      at ReadStream.emit (node:events:390:28)
+      at emitKeys (node:internal/readline/utils:358:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (node:internal/readline/emitKeypressEvents:61:36)
+      at ReadStream.emit (node:events:390:28)
+      at addChunk (node:internal/streams/readable:315:12)
+
+npm manifest: 
+  {
+    "name": "barcode-scanning",
+    "title": "React Native ML Kit Barcode Scanning",
+    "version": "1.0.6",
+    "description": "React Native On-Device Barcode Scanning w/ Google ML Kit",
+    "main": "index.js",
+    "files": [
+      "README.md",
+      "android",
+      "index.js",
+      "RNMLKitBarcodeScanning.podspec",
+      "ios"
+    ],
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/s0rta/barcodescanner.git"
+    },
+    "keywords": [
+      "react-native"
+    ],
+    "author": {
+      "name": "JT Wright",
+      "email": "jacob.t.wright@protonmail.com"
+    },
+    "license": "MIT",
+    "licenseFilename": "LICENSE",
+    "readmeFilename": "README.md",
+    "peerDependencies": {
+      "react": ">=16.8.1",
+      "react-native": ">=0.60.0-rc.0 <1.0.x"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
