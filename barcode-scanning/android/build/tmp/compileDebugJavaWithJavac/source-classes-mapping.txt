@@ -1,8 +1,0 @@
-com/rnmlkit/barcodescanning/BarcodeScanningPackage.java
- com.rnmlkit.barcodescanning.BarcodeScanningPackage
-com/rnmlkit/barcodescanning/BarcodeScanningModule.java
- com.rnmlkit.barcodescanning.BarcodeScanningModule
- com.rnmlkit.barcodescanning.BarcodeScanningModule$1
- com.rnmlkit.barcodescanning.BarcodeScanningModule$2
-com/rnmlkit/barcodescanning/BuildConfig.java
- com.rnmlkit.barcodescanning.BuildConfig
