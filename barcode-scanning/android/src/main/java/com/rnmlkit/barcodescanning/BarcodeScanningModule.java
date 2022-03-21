@@ -44,9 +44,7 @@ public class BarcodeScanningModule extends ReactContextBaseJavaModule {
         InputImage image;
         try {
             image = InputImage.fromFilePath(reactContext, uri);
-            // BarcodeScannerOptions options =
-            //         new BarcodeScannerOptions.Builder()
-            //                 .build();
+
             BarcodeScanner scanner = BarcodeScanning.getClient();
             scanner.process(image)
                     .addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
