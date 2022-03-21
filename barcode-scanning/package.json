@@ -1,5 +1,5 @@
 {
-  "name": "barcode-scanning",
+  "name": "@react-native-ml-kit/barcode-scanning",
   "title": "React Native ML Kit Barcode Scanning",
   "version": "1.0.8",
   "description": "React Native On-Device Barcode Scanning w/ Google ML Kit",
