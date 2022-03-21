@@ -1,4 +1,4 @@
-# @react-native-ml-kit/image-labeling
+# @react-native-ml-kit/barcode-scanning
 
 React Native On-Device Barcode Scanning w/ Google ML Kit
 
