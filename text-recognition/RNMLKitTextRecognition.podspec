@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency "GoogleMLKit/TextRecognition", "2.2.0"
+  s.dependency "GoogleMLKit/TextRecognition", "2.3.0"
 end
 
