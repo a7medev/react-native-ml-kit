@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency "GoogleMLKit/FaceDetection", "2.3.0"
+  s.dependency "GoogleMLKit/FaceDetection", "2.6.0"
 end
 
