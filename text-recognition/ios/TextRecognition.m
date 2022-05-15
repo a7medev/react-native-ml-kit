@@ -2,6 +2,7 @@
 
 @import MLKitVision.MLKVisionImage;
 @import MLKitTextRecognition;
+@import MLKitTextRecognitionCommon;
 
 @implementation TextRecognition
 
@@ -51,7 +52,7 @@ RCT_EXPORT_MODULE()
     [dict setObject:[self langsToDicts:block.recognizedLanguages] forKey:@"recognizedLanguages"];
     
     NSMutableArray *lines = [NSMutableArray array];
-    for (MLKTextLine* line in block.lines) {
+    for (MLKTextLine *line in block.lines) {
         [lines addObject:[self lineToDict:line]];
     }
     [dict setObject:lines forKey:@"lines"];
