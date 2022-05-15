@@ -27,5 +27,8 @@ On iOS, use CocoaPods to add the native RNMLKitBarcodeScanning to your project:
 ```javascript
 import BarcodeScanning from '@react-native-ml-kit/barcode-scanning';
 
-const labels = await BarcodeScanning.scan(imageURL);
+const barcodes = await BarcodeScanning.scan(imageURL);
+for (let barcode of barcodes) {
+  console.log(barcode.value, barcode.format);
+}
 ```
