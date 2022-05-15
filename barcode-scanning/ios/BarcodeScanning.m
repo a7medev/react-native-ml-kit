@@ -30,9 +30,20 @@ RCT_EXPORT_METHOD(scan
           NSMutableArray *result = [NSMutableArray array];
 
           for (MLKBarcode *barcode in barcodes) {
+            // Streamline format enum with Android
+            NSNumber* format;
+            switch (barcode.format) {
+                case MLKBarcodeFormatAll:
+                    format = @0; // Android uses 0 for "All"
+                case MLKBarcodeFormatUnknown:
+                    format = @-1; // Android used -1 for "Unknown"
+                default:
+                    format = @(barcode.format);
+            }
+              
             [result addObject:@{
               @"value": barcode.displayValue,
-              @"format": @(barcode.format)
+              @"format": format
             }];
           }
 
