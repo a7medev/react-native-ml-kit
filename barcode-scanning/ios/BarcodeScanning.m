@@ -31,8 +31,8 @@ RCT_EXPORT_METHOD(scan
 
           for (MLKBarcode *barcode in barcodes) {
             [result addObject:@{
-              @"value" : barcode.displayValue,
-              @"type" : @(barcode.format)
+              @"value": barcode.displayValue,
+              @"format": @(barcode.format)
             }];
           }
 
