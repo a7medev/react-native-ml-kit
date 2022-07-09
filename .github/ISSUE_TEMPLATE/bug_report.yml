@@ -1,0 +1,65 @@
+name: "Bug report \U0001F41B"
+description: File a bug report
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |-
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect to happen? Can you attach build logs? Can you attach screenshots?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What versions of `@react-native-ml-kit/*` are you using?
+      value: |
+        @react-native-ml-kit/barcode-scanning: *version*
+        @react-native-ml-kit/face-detection: *version*
+        @react-native-ml-kit/identify-languages: *version*
+        @react-native-ml-kit/image-labeling: *version*
+        @react-native-ml-kit/text-recognition: *version*
+        @react-native-ml-kit/translate-text: *version*
+    validations:
+      required: true
+  - type: checkboxes
+    id: packages
+    attributes:
+      label: Which ML Kit packages do you use?
+      description: 'Select all that apply:'
+      options:
+        - label: '@react-native-ml-kit/barcode-scanning'
+        - label: '@react-native-ml-kit/face-detection'
+        - label: '@react-native-ml-kit/identify-languages'
+        - label: '@react-native-ml-kit/image-labeling'
+        - label: '@react-native-ml-kit/text-recognition'
+        - label: '@react-native-ml-kit/translate-text'
+  - type: checkboxes
+    id: platforms
+    attributes:
+      label: What platforms are you seeing this issue on?
+      description: 'Select all that apply:'
+      options:
+        - label: Android
+        - label: iOS
+  - type: textarea
+    id: system-info
+    attributes:
+      label: System Information
+      placeholder: Run `npx react-native info` and paste the output here.
+    validations:
+      required: true
+  - type: textarea
+    id: repro-steps
+    attributes:
+      label: Steps to Reproduce
+      description: Tell us how to reproduce this issue, or provide a minimal demo where your issue can be easily reproduced.
+      placeholder: Tell us how to reproduce this issue.
+    validations:
+      required: true
