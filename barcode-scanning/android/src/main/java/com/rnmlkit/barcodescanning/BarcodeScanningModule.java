@@ -39,7 +39,7 @@ public class BarcodeScanningModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void scan(String url, Promise promise) {
+    public void scan(String url, final Promise promise) {
         Uri uri = Uri.parse(url);
         InputImage image;
         try {

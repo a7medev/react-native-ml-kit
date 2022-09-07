@@ -39,7 +39,7 @@ public class ImageLabelingModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void label(String url, Promise promise) {
+    public void label(String url, final Promise promise) {
         Uri uri = Uri.parse(url);
         InputImage image;
         try {
