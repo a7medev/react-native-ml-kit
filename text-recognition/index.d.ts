@@ -5,6 +5,11 @@ export interface Frame {
   left: number;
 }
 
+export interface Point {
+  x: number;
+  y: number;
+}
+
 export interface Language {
   /** Language code of the language */
   languageCode: string;
@@ -15,6 +20,8 @@ export interface TextElement {
   text: string;
   /** Bonding box of the element (word) */
   frame?: Frame;
+  /** Corner points of the element (word) */
+  cornerPoints: Point[];
 }
 
 export interface TextLine {
@@ -22,6 +29,8 @@ export interface TextLine {
   text: string;
   /** Line bounding box */
   frame?: Frame;
+  /** Line corner points */
+  cornerPoints: Point[];
   /** Elements (words) in the line */
   elements: TextElement[];
   /** Languages recognized in the line */
@@ -33,6 +42,8 @@ export interface TextBlock {
   text: string;
   /** Block bounding box */
   frame?: Frame;
+  /** Block corner points */
+  cornerPoints: Point[];
   /** Lines of text in the block */
   lines: TextLine[];
   /** Languages recognized in the block */
