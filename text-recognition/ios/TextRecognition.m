@@ -17,6 +17,17 @@ RCT_EXPORT_MODULE()
     };
 }
 
+- (NSArray<NSDictionary*>*)pointsToDicts: (NSArray<NSValue*>*)points {
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSValue* point in points) {
+        [array addObject:@{
+            @"x": [NSNumber numberWithFloat:point.CGPointValue.x],
+            @"y": [NSNumber numberWithFloat:point.CGPointValue.y]
+        }];
+    }
+    return array;
+}
+
 - (NSArray<NSDictionary*>*)langsToDicts: (NSArray<MLKTextRecognizedLanguage*>*)langs {
     NSMutableArray *array = [NSMutableArray array];
     for (MLKTextRecognizedLanguage* lang in langs) {
@@ -30,13 +41,15 @@ RCT_EXPORT_MODULE()
     
     [dict setObject:line.text forKey:@"text"];
     [dict setObject:[self frameToDict:line.frame] forKey:@"frame"];
+    [dict setObject:[self pointsToDicts:line.cornerPoints] forKey:@"cornerPoints"];
     [dict setObject:[self langsToDicts:line.recognizedLanguages] forKey:@"recognizedLanguages"];
     
     NSMutableArray *elements = [NSMutableArray array];
     for (MLKTextElement* element in line.elements) {
         [elements addObject:@{
             @"text": element.text,
-            @"frame": [self frameToDict:element.frame]
+            @"frame": [self frameToDict:element.frame],
+            @"cornerPoints": [self pointsToDicts:element.cornerPoints]
         }];
     }
     [dict setObject:elements forKey:@"elements"];
@@ -47,8 +60,9 @@ RCT_EXPORT_MODULE()
 - (NSDictionary*)blockToDict: (MLKTextBlock*)block {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
-    [dict setObject:[self frameToDict:block.frame] forKey:@"frame"];
     [dict setObject:block.text forKey:@"text"];
+    [dict setObject:[self frameToDict:block.frame] forKey:@"frame"];
+    [dict setObject:[self pointsToDicts:block.cornerPoints] forKey:@"cornerPoints"];
     [dict setObject:[self langsToDicts:block.recognizedLanguages] forKey:@"recognizedLanguages"];
     
     NSMutableArray *lines = [NSMutableArray array];

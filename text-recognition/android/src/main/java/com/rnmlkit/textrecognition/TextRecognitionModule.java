@@ -1,5 +1,6 @@
 package com.rnmlkit.textrecognition;
 
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 
@@ -47,6 +48,17 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
         return map;
     }
 
+    private ReadableArray cornerPointsToMap(Point[] points) {
+        WritableArray array = Arguments.createArray();
+        for (Point point : points) {
+            WritableMap map = Arguments.createMap();
+            map.putInt("x", point.x);
+            map.putInt("y", point.y);
+            array.pushMap(map);
+        }
+        return array;
+    }
+
     private ReadableArray langToMap(String lang) {
         WritableArray array = Arguments.createArray();
         WritableMap map = Arguments.createMap();
@@ -62,6 +74,7 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
         if (line.getBoundingBox() != null) {
             map.putMap("frame", rectToMap(line.getBoundingBox()));
         }
+        map.putArray("cornerPoints", cornerPointsToMap(line.getCornerPoints()));
         map.putArray("recognizedLanguages", langToMap(line.getRecognizedLanguage()));
 
         WritableArray elements = Arguments.createArray();
@@ -71,6 +84,7 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
             if (element.getBoundingBox() != null) {
                 el.putMap("frame", rectToMap(element.getBoundingBox()));
             }
+            el.putArray("cornerPoints", cornerPointsToMap(element.getCornerPoints()));
             elements.pushMap(el);
         }
         map.putArray("elements", elements);
@@ -84,6 +98,7 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
         if (block.getBoundingBox() != null) {
             map.putMap("frame", rectToMap(block.getBoundingBox()));
         }
+        map.putArray("cornerPoints", cornerPointsToMap(block.getCornerPoints()));
 
         WritableArray lines = Arguments.createArray();
         for (Text.Line line : block.getLines()) {
