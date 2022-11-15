@@ -44,9 +44,11 @@ RCT_EXPORT_METHOD(translate:(NSDictionary *)optionsMap
     
     MLKTranslator *translator = [MLKTranslator
                                  translatorWithOptions:options];
+
+    bool hasRequireWifi = [optionsMap objectForKey:@"requireWifi"];
     
     MLKModelDownloadConditions *conditions = [[MLKModelDownloadConditions alloc]
-                                              initWithAllowsCellularAccess:YES
+                                              initWithAllowsCellularAccess:!hasRequireWifi
                                               allowsBackgroundDownloading:YES];
     
     [translator
