@@ -4,6 +4,8 @@ package com.rnmlkit.customimagelabeling;
 
 import android.net.Uri;
 import android.content.res.AssetManager;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
@@ -32,6 +34,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.net.URL;
 
 public class CustomImageLabelingModule extends ReactContextBaseJavaModule {
 
@@ -53,8 +56,7 @@ public class CustomImageLabelingModule extends ReactContextBaseJavaModule {
         AssetManager manager = context.getAssets();
         InputStream is = manager.open(fileName);
 
-        List<String> localLabels
-                = new ArrayList<String>();
+        List<String> localLabels = new ArrayList<String>();
 
         BufferedReader bf = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 
@@ -71,17 +73,30 @@ public class CustomImageLabelingModule extends ReactContextBaseJavaModule {
         return localLabels;
     }
 
+    public static InputImage getInputImage(ReactApplicationContext reactContext, String url)
+            throws IOException {
+
+        if (url.contains("http://") || url.contains("https://")) {
+            URL urlInput = new URL(url);
+            Bitmap image = BitmapFactory.decodeStream(urlInput.openConnection().getInputStream());
+            InputImage inputImage = InputImage.fromBitmap(image, 0);
+            return inputImage;
+        }
+        else {
+            Uri uri = Uri.parse(url);
+            InputImage inputImage = InputImage.fromFilePath(reactContext, uri);
+            return inputImage;
+        }
+    }
+
     @ReactMethod
     public void label(final ReadableMap optionsMap, final Promise promise) {
 
         String url = optionsMap.getString("url");
         Float confidence = (float)(optionsMap.getDouble("confidence"));
 
-        Uri uri = Uri.parse(url);
-        InputImage image;
-
         try {
-            image = InputImage.fromFilePath(reactContext, uri);
+            InputImage image = getInputImage(this.reactContext, url);
 
             String localModelFilename = optionsMap.getString("localModelFilename");
             String localLabelsFilename = optionsMap.getString("localLabelsFilename");

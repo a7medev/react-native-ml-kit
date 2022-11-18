@@ -3,6 +3,8 @@
 package com.rnmlkit.barcodescanning;
 
 import android.net.Uri;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
@@ -23,6 +25,7 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import java.io.IOException;
 import java.util.List;
+import java.net.URL;
 
 public class BarcodeScanningModule extends ReactContextBaseJavaModule {
 
@@ -38,12 +41,27 @@ public class BarcodeScanningModule extends ReactContextBaseJavaModule {
         return "BarcodeScanning";
     }
 
+    public static InputImage getInputImage(ReactApplicationContext reactContext, String url)
+            throws IOException {
+
+        if (url.contains("http://") || url.contains("https://")) {
+            URL urlInput = new URL(url);
+            Bitmap image = BitmapFactory.decodeStream(urlInput.openConnection().getInputStream());
+            InputImage inputImage = InputImage.fromBitmap(image, 0);
+            return inputImage;
+        }
+        else {
+            Uri uri = Uri.parse(url);
+            InputImage inputImage = InputImage.fromFilePath(reactContext, uri);
+            return inputImage;
+        }
+    }
+
     @ReactMethod
     public void scan(String url, final Promise promise) {
-        Uri uri = Uri.parse(url);
         InputImage image;
         try {
-            image = InputImage.fromFilePath(reactContext, uri);
+            image = getInputImage(this.reactContext, url);
 
             BarcodeScanner scanner = BarcodeScanning.getClient();
             scanner.process(image)
