@@ -10,11 +10,20 @@
 
 RCT_EXPORT_MODULE()
 
+
+
 RCT_EXPORT_METHOD(label:(NSDictionary *)optionsMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSString *url = [optionsMap objectForKey:@"url"];
+    NSString *withFilePrefix = [optionsMap objectForKey:@"withFilePrefix"];
+    
+    if (![url containsString:@"http://"] && ![url containsString:@"https://"] ) {
+        if ([withFilePrefix isEqual:@"yes"]) {
+            url = [@"file:" stringByAppendingString:url];
+        }
+    }
     
     NSString *localModelFilename = [optionsMap objectForKey:@"localModelFilename"];
     NSString *localLabelsFilename = [optionsMap objectForKey:@"localLabelsFilename"];

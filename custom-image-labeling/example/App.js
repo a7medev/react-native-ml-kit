@@ -14,7 +14,8 @@ const App = () => {
       url: image.path,
       confidence: 0.8,
       localModelFilename: 'mobilenet_v1_1.0_224_quant.tflite',
-      localLabelsFilename: 'labels_mobilenet_quant_v1_224.txt'
+      localLabelsFilename: 'labels_mobilenet_quant_v1_224.txt',
+      withFilePrefix: 'yes'
     });
     console.log(result);
     setLabels(result);
