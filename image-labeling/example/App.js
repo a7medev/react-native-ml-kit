@@ -10,7 +10,7 @@ const App = () => {
     setLabels([]);
     const image = await ImagePicker.openPicker({ mediaType: 'photo' });
     console.log(image.path);
-    const result = await ImageLabeling.label(image.path);
+    const result = await ImageLabeling.label('file:' + image.path);
     console.log(result);
     setLabels(result);
   };
