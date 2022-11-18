@@ -14,14 +14,13 @@ RCT_EXPORT_METHOD(label:(NSDictionary *)optionsMap
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *url = @"file:";
-    NSString *inputUrl = [optionsMap objectForKey:@"url"];
-    url = [url stringByAppendingString:inputUrl];
+    NSString *url = [optionsMap objectForKey:@"url"];
     
     NSString *localModelFilename = [optionsMap objectForKey:@"localModelFilename"];
     NSString *localLabelsFilename = [optionsMap objectForKey:@"localLabelsFilename"];
 
     NSDecimalNumber *confidence = [optionsMap objectForKey:@"confidence"];
+    
     NSString *mainBundlePath = [[NSBundle mainBundle] bundlePath];
     mainBundlePath = [mainBundlePath stringByAppendingString:@"/"];
     

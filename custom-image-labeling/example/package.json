@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-ml-kit/custom-image-labeling": "file:../",
+    "@react-native-ml-kit/custom-image-labeling": "link:../",
     "react": "17.0.2",
     "react-native": "0.66.0",
     "react-native-image-crop-picker": "^0.36.4"

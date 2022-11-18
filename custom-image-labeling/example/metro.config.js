@@ -22,14 +22,6 @@ module.exports = {
       { get: (_, name) => path.resolve('.', 'node_modules', name) }
     )
   },
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        // this defeats the RCTDeviceEventEmitter is not a registered callable module
-        inlineRequires: true,
-      },
-    }),
-  },
   // quick workaround for another issue with symlinks
   watchFolders: [path.resolve('.'), path.resolve('..')]
 }
