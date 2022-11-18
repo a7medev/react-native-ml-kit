@@ -1,10 +1,10 @@
-# @react-native-ml-kit/image-labeling
+# @react-native-ml-kit/custom-image-labeling
 
-React Native On-Device Image Labeling w/ Google ML Kit
+React Native On-Device Custom Image Labeling w/ Google ML Kit
 
 ## Getting started
 
-`npm install @react-native-ml-kit/image-labeling --save`
+`npm install @react-native-ml-kit/custom-image-labeling --save`
 
 ### Linking
 
@@ -14,7 +14,7 @@ React Native On-Device Image Labeling w/ Google ML Kit
 
 #### React Native <= 0.59
 
-`react-native link @react-native-ml-kit/image-labeling`
+`react-native link @react-native-ml-kit/custom-image-labeling`
 
 ### Installing Pods
 
@@ -25,7 +25,7 @@ On iOS, use CocoaPods to add the native RNMLKitCustomImageLabeling to your proje
 ## Usage
 
 ```javascript
-import CustomImageLabeling from '@react-native-ml-kit/image-labeling';
+import CustomImageLabeling from '@react-native-ml-kit/custom-image-labeling';
 
 const labels = await CustomImageLabeling.label(imageURL);
 ```
