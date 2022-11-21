@@ -3,6 +3,8 @@ package com.rnmlkit.textrecognition;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
@@ -37,6 +39,22 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
     @Override
     public String getName() {
         return "TextRecognition";
+    }
+
+    public static InputImage getInputImage(ReactApplicationContext reactContext, String url)
+            throws IOException {
+
+        if (url.contains("http://") || url.contains("https://")) {
+            URL urlInput = new URL(url);
+            Bitmap image = BitmapFactory.decodeStream(urlInput.openConnection().getInputStream());
+            InputImage inputImage = InputImage.fromBitmap(image, 0);
+            return inputImage;
+        }
+        else {
+            Uri uri = Uri.parse(url);
+            InputImage inputImage = InputImage.fromFilePath(reactContext, uri);
+            return inputImage;
+        }
     }
 
     private ReadableMap rectToMap(Rect rect) {
@@ -112,10 +130,9 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void recognize(String url, final Promise promise) {
-        Uri uri = Uri.parse(url);
         InputImage image;
         try {
-            image = InputImage.fromFilePath(reactContext, uri);
+            image = getInputImage(this.reactContext, url);
             TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
             recognizer.process(image)
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
