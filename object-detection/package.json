@@ -1,0 +1,38 @@
+{
+  "name": "@react-native-ml-kit/object-detection",
+  "title": "React Native ML Kit Object Detection",
+  "version": "1.2.0",
+  "description": "React Native On-Device Object Detection w/ Google ML Kit",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "README.md",
+    "android",
+    "index.js",
+    "index.d.ts",
+    "ios",
+    "RNMLKitObjectDetection.podspec"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a7med-mahmoud/react-native-ml-kit.git",
+    "baseUrl": "https://github.com/a7med-mahmoud/react-native-ml-kit"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": {
+    "name": "Ahmed Mahmoud",
+    "email": "a7med.mahmoud2004@gmail.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": ">=16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  }
+}
