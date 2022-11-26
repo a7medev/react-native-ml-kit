@@ -66,7 +66,7 @@ public class ObjectDetectionModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void label(final ReadableMap optionsMap, final Promise promise) {
+    public void detectSingleImage(final ReadableMap optionsMap, final Promise promise) {
 
         promise.resolve(null);
     }
