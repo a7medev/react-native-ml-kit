@@ -72,14 +72,23 @@ public class ObjectDetectionModule extends ReactContextBaseJavaModule {
 
         String url = optionsMap.getString("url");
 
-        ObjectDetectorOptions options =
-            new ObjectDetectorOptions.Builder()
-                    .setDetectorMode(ObjectDetectorOptions.SINGLE_IMAGE_MODE)
-                    .enableMultipleObjects()
-                    .enableClassification() 
-                    .build();
+        boolean shouldEnableMultipleObjects = optionsMap.getBoolean("shouldEnableMultipleObjects");
+        boolean shouldEnableClassification = optionsMap.getBoolean("shouldEnableClassification");
 
-        ObjectDetector objectDetector = ObjectDetection.getClient(options);
+        ObjectDetectorOptions.Builder options =
+            new ObjectDetectorOptions.Builder();
+
+        options.setDetectorMode(ObjectDetectorOptions.SINGLE_IMAGE_MODE);
+
+        if (shouldEnableClassification) {
+            options.enableClassification();
+        }
+
+        if (shouldEnableMultipleObjects) {
+            options.enableMultipleObjects();
+        }
+
+        ObjectDetector objectDetector = ObjectDetection.getClient(options.build());
 
         try {
             InputImage image = getInputImage(this.reactContext, url);
