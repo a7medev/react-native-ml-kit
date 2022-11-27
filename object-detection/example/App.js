@@ -34,7 +34,7 @@ const App = () => {
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={true} vertical={true} style={styles.imageContainer}>
         <ScrollView showsHorizontalScrollIndicator={true} horizontal={true}>
-          {imageHeightWidth && <ImageBackground style={{ width: imageHeightWidth.width, height: imageHeightWidth.height }} source={{ uri: imagePath }} resizeMode="center">
+          {imageHeightWidth && <ImageBackground style={{ width: imageHeightWidth.width, height: imageHeightWidth.height }} source={{ uri: imagePath }} resizeMode="cover">
 
             {labels.map(label => (<View key={label.index} style={{
               zIndex: 20,

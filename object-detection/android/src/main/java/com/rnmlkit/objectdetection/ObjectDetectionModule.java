@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.content.res.AssetManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 import androidx.annotation.NonNull;
 
@@ -19,12 +20,13 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.ReadableMap;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.common.model.LocalModel;
-import com.google.mlkit.vision.label.ImageLabel;
-import com.google.mlkit.vision.label.ImageLabeler;
-import com.google.mlkit.vision.label.ImageLabeling;
-import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions;
+import com.google.mlkit.vision.objects.ObjectDetector;
+import com.google.mlkit.vision.objects.ObjectDetection;
+import com.google.mlkit.vision.objects.DetectedObject;
+import com.google.mlkit.vision.objects.DetectedObject.Label;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -68,6 +70,58 @@ public class ObjectDetectionModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void detectSingleImage(final ReadableMap optionsMap, final Promise promise) {
 
-        promise.resolve(null);
+        String url = optionsMap.getString("url");
+
+        ObjectDetectorOptions options =
+            new ObjectDetectorOptions.Builder()
+                    .setDetectorMode(ObjectDetectorOptions.SINGLE_IMAGE_MODE)
+                    .enableMultipleObjects()
+                    .enableClassification() 
+                    .build();
+
+        ObjectDetector objectDetector = ObjectDetection.getClient(options);
+
+        try {
+            InputImage image = getInputImage(this.reactContext, url);
+
+            objectDetector.process(image)
+                .addOnSuccessListener(
+                    new OnSuccessListener<List<DetectedObject>>() {
+                        @Override
+                        public void onSuccess(List<DetectedObject> detectedObjects) {
+
+                            WritableArray result = Arguments.createArray();
+
+                            for (DetectedObject detectedObject : detectedObjects) {
+                                Rect boundingBox = detectedObject.getBoundingBox();
+
+                                for (Label label : detectedObject.getLabels()) {
+                                    WritableMap map = Arguments.createMap();
+                                    map.putInt("frameX", boundingBox.left);
+                                    map.putInt("frameY", boundingBox.top);
+                                    map.putInt("frameWidth", boundingBox.right - boundingBox.left);
+                                    map.putInt("frameHeight", boundingBox.bottom - boundingBox.top);
+                                    map.putString("text", label.getText());
+                                    map.putDouble("confidence", label.getConfidence());
+                                    map.putInt("index", label.getIndex());
+                                    result.pushMap(map);
+                                }
+                            }
+                            promise.resolve(result);
+                        }
+                    })
+                .addOnFailureListener(
+                    new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                            promise.reject("Image labeling failed", e);
+                        }
+                    });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            promise.reject("Image labeling failed", e);
+        }
     }
 }

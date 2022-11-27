@@ -60,6 +60,5 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
-    implementation 'com.google.mlkit:image-labeling:17.0.7'
-    implementation 'com.google.mlkit:image-labeling-custom:17.0.1'
+    implementation 'com.google.mlkit:object-detection:17.0.0'
 }
