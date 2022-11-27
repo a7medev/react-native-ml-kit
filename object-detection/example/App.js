@@ -1,69 +1,80 @@
 import React, { useState } from 'react';
-import { Text, Button, StyleSheet, View, ImageBackground } from 'react-native';
+import { Text, Button, StyleSheet, View, ImageBackground, ScrollView, Dimensions, Platform } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import ObjectDetection from '@react-native-ml-kit/object-detection';
 
 const App = () => {
   const [labels, setLabels] = useState([]);
   const [imagePath, setImagePath] = useState(null);
+  const [imageHeightWidth, setImageHeightWidth] = useState(null);
 
   const handlePress = async () => {
     setLabels([]);
+
     const image = await ImagePicker.openPicker({ mediaType: 'photo' });
+
+    setImageHeightWidth({
+      height: image.height,
+      width: image.width
+    })
+
     setImagePath(image.path);
 
-    console.log(image.path);
     const result = await ObjectDetection.detectSingleImage({
-      url: 'file:' + image.path,
+      url: (Platform.OS === 'ios' ? 'file:' : '') + image.path,
       confidence: 0.8,
       shouldEnableMultipleObjects: true,
       shouldEnableClassification: true
     });
-    console.log(result);
+
     setLabels(result);
   };
 
-  // resizeMode="repeat" has to be because any other configuration scales or recenters the image!
-
   return (
     <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={true} vertical={true} style={styles.imageContainer}>
+        <ScrollView showsHorizontalScrollIndicator={true} horizontal={true}>
+          {imageHeightWidth && <ImageBackground style={{ width: imageHeightWidth.width, height: imageHeightWidth.height }} source={{ uri: imagePath }} resizeMode="center">
 
-      <View style={styles.image}>
-        <ImageBackground style={styles.image} source={{ uri: imagePath }} resizeMode="repeat">
+            {labels.map(label => (<View key={label.index} style={{
+              zIndex: 20,
+              borderWidth: 1,
+              borderColor: 'white',
+              backgroundColor: 'rgba(0, 0, 0, 0.3)',
+              width: label.frameWidth,
+              height: label.frameHeight,
+              left: label.frameX,
+              top: label.frameY
+            }} />))
+            }
 
-          {labels.map(label => (<View key={label.index} style={{
-            zIndex: 20,
-            borderWidth: 1,
-            borderColor: 'white',
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            width: label.frameWidth,
-            height: label.frameHeight,
-            left: label.frameX,
-            top: label.frameY
-          }} />))}
+          </ImageBackground>}
+        </ScrollView>
+      </ScrollView>
 
-        </ImageBackground>
+      <View style={styles.controlContainer}>
+        <Button title="Choose an Image" onPress={handlePress} />
+
+        {labels.length > 0 && <Text style={styles.heading}>Labels</Text>}
+        {labels.map(label => (
+          <View style={styles.label} key={label}>
+            <Text>
+              {label.text} - {label.confidence.toFixed(2)}%
+              w={label.frameWidth} h={label.frameHeight} x={label.frameX} y={label.frameY}
+            </Text>
+          </View>
+        ))}
       </View>
-
-      <Button title="Choose an Image" onPress={handlePress} />
-
-      {labels.length > 0 && <Text style={styles.heading}>Labels</Text>}
-      {labels.map(label => (
-        <View style={styles.label} key={label}>
-          <Text>
-            {label.text} - {label.confidence.toFixed(2)}% (w*h*x*y == {label.frameWidth}x{label.frameHeight}x{label.frameX}x{label.frameY})
-          </Text>
-        </View>
-      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+  },
+  controlContainer: {
     alignItems: 'center',
+    justifyContent: 'center'
   },
   label: {
     backgroundColor: '#ffff55',
@@ -78,10 +89,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 20,
   },
-  image: {
-    overflow: 'hidden',
-    height: 400,
-    width: '100%',
+  imageContainer: {
+    height: Dimensions.get('window').height / 1.5,
+    width: Dimensions.get('window').width,
     backgroundColor: 'black'
   }
 });
