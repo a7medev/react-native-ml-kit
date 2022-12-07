@@ -26,6 +26,7 @@ import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class TextRecognitionModule extends ReactContextBaseJavaModule {
 
