@@ -5,6 +5,8 @@ package com.rnmlkit.facedetection;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
@@ -28,6 +30,7 @@ import com.google.mlkit.vision.face.FaceLandmark;
 
 import java.io.IOException;
 import java.util.List;
+import java.net.URL;
 
 public class FaceDetectionModule extends ReactContextBaseJavaModule {
 
@@ -41,6 +44,22 @@ public class FaceDetectionModule extends ReactContextBaseJavaModule {
     @Override
     public String getName() {
         return "FaceDetection";
+    }
+
+    public static InputImage getInputImage(ReactApplicationContext reactContext, String url)
+            throws IOException {
+
+        if (url.contains("http://") || url.contains("https://")) {
+            URL urlInput = new URL(url);
+            Bitmap image = BitmapFactory.decodeStream(urlInput.openConnection().getInputStream());
+            InputImage inputImage = InputImage.fromBitmap(image, 0);
+            return inputImage;
+        }
+        else {
+            Uri uri = Uri.parse(url);
+            InputImage inputImage = InputImage.fromFilePath(reactContext, uri);
+            return inputImage;
+        }
     }
 
     private FaceDetectorOptions getOptions(ReadableMap map) {
@@ -273,10 +292,9 @@ public class FaceDetectionModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void detect(String url, final ReadableMap optionsMap, final Promise promise) {
-        Uri uri = Uri.parse(url);
         InputImage image;
         try {
-            image = InputImage.fromFilePath(reactContext, uri);
+            image = getInputImage(this.reactContext, url);
             FaceDetectorOptions options = getOptions(optionsMap);
             FaceDetector detector = FaceDetection.getClient(options);
             detector.process(image)
