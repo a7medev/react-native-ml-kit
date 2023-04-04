@@ -3,6 +3,10 @@
 @import MLKitVision.MLKVisionImage;
 @import MLKitTextRecognition;
 @import MLKitTextRecognitionCommon;
+@import MLKitTextRecognitionChinese;
+@import MLKitTextRecognitionJapanese;
+@import MLKitTextRecognitionKorean;
+@import MLKitTextRecognitionDevanagari;
 
 @implementation TextRecognition
 
@@ -75,6 +79,7 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_METHOD(recognize: (nonnull NSString*)url
+                  language:(NSString*)language
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -82,8 +87,27 @@ RCT_EXPORT_METHOD(recognize: (nonnull NSString*)url
     NSData *imageData = [NSData dataWithContentsOfURL:_url];
     UIImage *image = [UIImage imageWithData:imageData];
     MLKVisionImage *visionImage = [[MLKVisionImage alloc] initWithImage:image];
-    MLKTextRecognizer *textRecognizer = [MLKTextRecognizer textRecognizer];
+
+    // text recognizer options based on the language params
+    MLKTextRecognizerOptions *options = nil;
+
+    // if the language param isn't specified, we can assume the user requirement is Latin text recognition
+    if (language == nil) {
+        options = [[MLKTextRecognizerOptions alloc] init];
+    } else if ([language isEqualToString:@"Chinese"]) {
+        options = [[MLKChineseTextRecognizerOptions alloc] init];
+    } else if ([language isEqualToString:@"Devanagari"]) {
+        options = [[MLKDevanagariTextRecognizerOptions alloc] init];
+    } else if ([language isEqualToString:@"Japanese"]) {
+        options = [[MLKJapaneseTextRecognizerOptions alloc] init];
+    } else if ([language isEqualToString:@"Korean"]) {
+        options = [[MLKKoreanTextRecognizerOptions alloc] init];
+    } else {
+        return reject(@"Text Recognition", @"Unsupported language", nil);
+    }
     
+    MLKTextRecognizer *textRecognizer = [MLKTextRecognizer textRecognizerWithOptions:options];
+
     [textRecognizer processImage:visionImage
                       completion:^(MLKText *_Nullable _result,
                                    NSError *_Nullable error) {

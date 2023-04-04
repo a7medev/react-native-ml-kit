@@ -62,9 +62,17 @@ interface ITextRecognition {
    * Recognize text in the image
    *
    * @param imageURL The URL/Path of the image to process
+   *
+   * @param language @optional The language to use for non-latin
+   * text recognition. The default is English. Available languages:
+   * - Chinese
+   * - Devanagari
+   * - Japanese
+   * - Korean
+   *
    * @returns Text recognition result
    */
-  recognize: (imageURL: string) => Promise<TextRecognitionResult>;
+  recognize: (imageURL: string, language?: string | null) => Promise<TextRecognitionResult>;
 }
 
 declare const TextRecognition: ITextRecognition;
