@@ -79,7 +79,7 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_METHOD(recognize: (nonnull NSString*)url
-                  language:(NSString*)language
+                  script:(NSString*)script
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -88,22 +88,22 @@ RCT_EXPORT_METHOD(recognize: (nonnull NSString*)url
     UIImage *image = [UIImage imageWithData:imageData];
     MLKVisionImage *visionImage = [[MLKVisionImage alloc] initWithImage:image];
 
-    // text recognizer options based on the language params
+    // text recognizer options based on the script params
     MLKTextRecognizerOptions *options = nil;
 
     // if the language param isn't specified, we can assume the user requirement is Latin text recognition
-    if (language == nil) {
+    if (script == nil) {
         options = [[MLKTextRecognizerOptions alloc] init];
-    } else if ([language isEqualToString:@"Chinese"]) {
+    } else if ([script isEqualToString:@"Chinese"]) {
         options = [[MLKChineseTextRecognizerOptions alloc] init];
-    } else if ([language isEqualToString:@"Devanagari"]) {
+    } else if ([script isEqualToString:@"Devanagari"]) {
         options = [[MLKDevanagariTextRecognizerOptions alloc] init];
-    } else if ([language isEqualToString:@"Japanese"]) {
+    } else if ([script isEqualToString:@"Japanese"]) {
         options = [[MLKJapaneseTextRecognizerOptions alloc] init];
-    } else if ([language isEqualToString:@"Korean"]) {
+    } else if ([script isEqualToString:@"Korean"]) {
         options = [[MLKKoreanTextRecognizerOptions alloc] init];
     } else {
-        return reject(@"Text Recognition", @"Unsupported language", nil);
+        return reject(@"Text Recognition", @"Unsupported script", nil);
     }
     
     MLKTextRecognizer *textRecognizer = [MLKTextRecognizer textRecognizerWithOptions:options];
