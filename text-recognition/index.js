@@ -6,6 +6,14 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
+export const TranslateRecognitionScript = Object.freeze({
+  LATIN: 'Latin',
+  CHINESE: 'Chinese',
+  DEVANAGARI: 'Devanagari',
+  JAPANESE: 'Japanese',
+  KOREAN: 'Korean',
+});
+
 const TextRecognition = NativeModules.TextRecognition
   ? NativeModules.TextRecognition
   : new Proxy(
