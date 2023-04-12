@@ -57,7 +57,7 @@ export interface TextRecognitionResult {
   blocks: TextBlock[];
 }
 
-export enum TranslateRecognitionScript {
+export enum TextRecognitionScript {
   LATIN = 'Latin',
   CHINESE = 'Chinese',
   DEVANAGARI = 'Devanagari',
