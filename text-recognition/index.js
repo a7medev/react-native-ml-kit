@@ -6,7 +6,7 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-export const TranslateRecognitionScript = Object.freeze({
+export const TextRecognitionScript = Object.freeze({
   LATIN: 'Latin',
   CHINESE: 'Chinese',
   DEVANAGARI: 'Devanagari',
