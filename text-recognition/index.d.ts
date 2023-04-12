@@ -71,7 +71,7 @@ interface ITextRecognition {
    *
    * @param imageURL The URL/Path of the image to process
    *
-   * @param language @optional The language to use for non-latin
+   * @param script @optional The language to use for non-latin
    * text recognition. The default is set to Latin scripts. Available scripts:
    * - Chinese
    * - Devanagari
