@@ -1,4 +1,4 @@
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 const LINKING_ERROR =
   `The package '@react-native-ml-kit/text-recognition' doesn't seem to be linked. Make sure: \n\n` +
@@ -25,4 +25,12 @@ const TextRecognition = NativeModules.TextRecognition
       }
     );
 
-export default TextRecognition;
+export default {
+  recognize: (imageURL, script = TextRecognitionScript.LATIN) => {
+    if (Platform.OS === 'ios') {
+      return TextRecognition.recognize(imageURL, script);
+    }
+
+    return TextRecognition.recognize(imageURL);
+  },
+};
