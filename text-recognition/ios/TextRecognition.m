@@ -92,7 +92,7 @@ RCT_EXPORT_METHOD(recognize: (nonnull NSString*)url
     MLKTextRecognizerOptions *options = nil;
 
     // if the language param isn't specified, we can assume the user requirement is Latin text recognition
-    if (script == nil) {
+    if (script == nil || [script isEqualToString:@"Latin"]) {
         options = [[MLKTextRecognizerOptions alloc] init];
     } else if ([script isEqualToString:@"Chinese"]) {
         options = [[MLKChineseTextRecognizerOptions alloc] init];
