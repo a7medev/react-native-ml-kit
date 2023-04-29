@@ -57,14 +57,33 @@ export interface TextRecognitionResult {
   blocks: TextBlock[];
 }
 
+export enum TextRecognitionScript {
+  LATIN = 'Latin',
+  CHINESE = 'Chinese',
+  DEVANAGARI = 'Devanagari',
+  JAPANESE = 'Japanese',
+  KOREAN = 'Korean',
+}
+
 interface ITextRecognition {
   /**
    * Recognize text in the image
    *
    * @param imageURL The URL/Path of the image to process
+   *
+   * @param [script] The language to use for non-latin
+   * text recognition. The default is set to Latin scripts. Available scripts:
+   * - Chinese
+   * - Devanagari
+   * - Japanese
+   * - Korean
+   *
    * @returns Text recognition result
    */
-  recognize: (imageURL: string) => Promise<TextRecognitionResult>;
+  recognize: (
+    imageURL: string,
+    script?: TranslateRecognitionScript = TranslateRecognitionScript.LATIN
+  ) => Promise<TextRecognitionResult>;
 }
 
 declare const TextRecognition: ITextRecognition;
