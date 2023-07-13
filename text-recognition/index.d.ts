@@ -15,13 +15,15 @@ export interface Language {
   languageCode: string;
 }
 
+type CornerPoints = readonly [Point, Point, Point, Point];
+
 export interface TextElement {
   /** Recognized text of the element (word) */
   text: string;
   /** Bonding box of the element (word) */
   frame?: Frame;
   /** Corner points of the element (word) */
-  cornerPoints: Point[];
+  cornerPoints?: CornerPoints;
 }
 
 export interface TextLine {
@@ -30,7 +32,7 @@ export interface TextLine {
   /** Line bounding box */
   frame?: Frame;
   /** Line corner points */
-  cornerPoints: Point[];
+  cornerPoints?: CornerPoints;
   /** Elements (words) in the line */
   elements: TextElement[];
   /** Languages recognized in the line */
@@ -43,7 +45,7 @@ export interface TextBlock {
   /** Block bounding box */
   frame?: Frame;
   /** Block corner points */
-  cornerPoints: Point[];
+  cornerPoints?: CornerPoints;
   /** Lines of text in the block */
   lines: TextLine[];
   /** Languages recognized in the block */

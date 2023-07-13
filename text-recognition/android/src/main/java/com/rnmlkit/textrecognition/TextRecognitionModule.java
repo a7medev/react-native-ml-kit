@@ -30,11 +30,8 @@ import java.net.URL;
 
 public class TextRecognitionModule extends ReactContextBaseJavaModule {
 
-    private final ReactApplicationContext reactContext;
-
     public TextRecognitionModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        this.reactContext = reactContext;
     }
 
     @Override
@@ -93,7 +90,9 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
         if (line.getBoundingBox() != null) {
             map.putMap("frame", rectToMap(line.getBoundingBox()));
         }
-        map.putArray("cornerPoints", cornerPointsToMap(line.getCornerPoints()));
+		if (line.getCornerPoints() != null) {
+			map.putArray("cornerPoints", cornerPointsToMap(line.getCornerPoints()));
+		}
         map.putArray("recognizedLanguages", langToMap(line.getRecognizedLanguage()));
 
         WritableArray elements = Arguments.createArray();
@@ -103,7 +102,9 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
             if (element.getBoundingBox() != null) {
                 el.putMap("frame", rectToMap(element.getBoundingBox()));
             }
-            el.putArray("cornerPoints", cornerPointsToMap(element.getCornerPoints()));
+            if (element.getCornerPoints() != null) {
+            	el.putArray("cornerPoints", cornerPointsToMap(element.getCornerPoints()));
+			}
             elements.pushMap(el);
         }
         map.putArray("elements", elements);
@@ -117,7 +118,9 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
         if (block.getBoundingBox() != null) {
             map.putMap("frame", rectToMap(block.getBoundingBox()));
         }
-        map.putArray("cornerPoints", cornerPointsToMap(block.getCornerPoints()));
+		if (block.getCornerPoints() != null) {
+			map.putArray("cornerPoints", cornerPointsToMap(block.getCornerPoints()));
+		}
 
         WritableArray lines = Arguments.createArray();
         for (Text.Line line : block.getLines()) {
@@ -133,7 +136,7 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
     public void recognize(String url, final Promise promise) {
         InputImage image;
         try {
-            image = getInputImage(this.reactContext, url);
+            image = getInputImage(this.getReactApplicationContext(), url);
             TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
             recognizer.process(image)
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
