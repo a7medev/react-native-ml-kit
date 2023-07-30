@@ -87,9 +87,10 @@ RCT_EXPORT_METHOD(recognize: (nonnull NSString*)url
     NSData *imageData = [NSData dataWithContentsOfURL:_url];
     UIImage *image = [UIImage imageWithData:imageData];
     MLKVisionImage *visionImage = [[MLKVisionImage alloc] initWithImage:image];
+    visionImage.orientation = image.imageOrientation;
 
     // text recognizer options based on the script params
-    MLKTextRecognizerOptions *options = nil;
+    MLKCommonTextRecognizerOptions *options = nil;
 
     // if the language param isn't specified, we can assume the user requirement is Latin text recognition
     if (script == nil || [script isEqualToString:@"Latin"]) {
