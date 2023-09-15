@@ -1,4 +1,4 @@
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 const LINKING_ERROR =
   `The package '@react-native-ml-kit/face-detection' doesn't seem to be linked. Make sure: \n\n` +
