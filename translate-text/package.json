@@ -1,7 +1,7 @@
 {
   "name": "@react-native-ml-kit/translate-text",
   "title": "React Native ML Kit Translate Text",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "React Native On-Device Text Translation w/ Google ML Kit",
   "main": "index.js",
   "types": "index.d.ts",
