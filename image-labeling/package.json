@@ -1,7 +1,7 @@
 {
   "name": "@react-native-ml-kit/image-labeling",
   "title": "React Native ML Kit Image Labeling",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "React Native On-Device Image Labeling w/ Google ML Kit",
   "main": "index.js",
   "types": "index.d.ts",
