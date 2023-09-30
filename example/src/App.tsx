@@ -3,12 +3,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TextRecognitionScreen from './text-recognition/TextRecognitionScreen';
 import FaceDetectionScreen from './face-detection/FaceDetectionScreen';
+import ImageLabelingScreen from './image-labeling/ImageLabelingScreen';
 import HomeScreen from './core/HomeScreen';
 
 export type ParamList = {
   Home: undefined;
   TextRecognition: undefined;
   FaceDetection: undefined;
+  ImageLabeling: undefined;
 };
 
 const Stack = createNativeStackNavigator<ParamList>();
@@ -27,6 +29,11 @@ const App: React.FC = () => {
           name="TextRecognition"
           component={TextRecognitionScreen}
           options={{title: 'Text Recognition'}}
+        />
+        <Stack.Screen
+          name="ImageLabeling"
+          component={ImageLabelingScreen}
+          options={{title: 'Image Labeling'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

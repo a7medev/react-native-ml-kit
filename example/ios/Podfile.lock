@@ -97,6 +97,12 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMLKit/FaceDetection (4.0.0):
+    - GoogleMLKit/MLKitCore
+    - MLKitFaceDetection (~> 3.0.0)
+  - GoogleMLKit/ImageLabeling (4.0.0):
+    - GoogleMLKit/MLKitCore
+    - MLKitImageLabeling (~> 3.0.0)
   - GoogleMLKit/MLKitCore (4.0.0):
     - MLKitCommon (~> 9.0.0)
   - GoogleMLKit/TextRecognition (4.0.0):
@@ -148,6 +154,20 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 7.0)
     - GoogleUtilitiesComponents (~> 1.0)
     - GTMSessionFetcher/Core (< 3.0, >= 1.1)
+  - MLKitFaceDetection (3.0.0):
+    - MLKitCommon (~> 9.0)
+    - MLKitVision (~> 5.0)
+  - MLKitImageLabeling (3.0.0):
+    - MLKitCommon (~> 9.0)
+    - MLKitImageLabelingCommon (~> 5.0)
+    - MLKitVision (~> 5.0)
+    - MLKitVisionKit (~> 6.0)
+  - MLKitImageLabelingCommon (5.0.0):
+    - MLKitCommon (~> 9.0)
+    - MLKitVision (~> 5.0)
+  - MLKitObjectDetectionCommon (5.0.0):
+    - MLKitCommon (~> 9.0)
+    - MLKitVision (~> 5.0)
   - MLKitTextRecognition (2.0.0):
     - MLKitCommon (~> 9.0)
     - MLKitTextRecognitionCommon (= 1.0.0)
@@ -177,6 +197,11 @@ PODS:
     - GTMSessionFetcher/Core (< 3.0, >= 1.1)
     - MLImage (= 1.0.0-beta4)
     - MLKitCommon (~> 9.0)
+  - MLKitVisionKit (6.0.0):
+    - MLKitCommon (~> 9.0)
+    - MLKitImageLabelingCommon (~> 5.0)
+    - MLKitObjectDetectionCommon (~> 5.0)
+    - MLKitVision (~> 5.0)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -596,6 +621,12 @@ PODS:
     - React-jsi (= 0.72.4)
     - React-logger (= 0.72.4)
     - React-perflogger (= 0.72.4)
+  - RNMLKitFaceDetection (1.2.0):
+    - GoogleMLKit/FaceDetection (= 4.0.0)
+    - React
+  - RNMLKitImageLabeling (1.3.0):
+    - GoogleMLKit/ImageLabeling (= 4.0.0)
+    - React
   - RNMLKitTextRecognition (1.3.0):
     - GoogleMLKit/TextRecognition (= 4.0.0)
     - GoogleMLKit/TextRecognitionChinese (= 4.0.0)
@@ -606,6 +637,8 @@ PODS:
   - RNScreens (3.25.0):
     - React-Core
     - React-RCTImage
+  - RNSVG (13.14.0):
+    - React-Core
   - SocketRocket (0.6.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -684,8 +717,11 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNMLKitFaceDetection (from `../node_modules/@react-native-ml-kit/face-detection`)"
+  - "RNMLKitImageLabeling (from `../node_modules/@react-native-ml-kit/image-labeling`)"
   - "RNMLKitTextRecognition (from `../node_modules/@react-native-ml-kit/text-recognition`)"
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -709,6 +745,10 @@ SPEC REPOS:
     - libevent
     - MLImage
     - MLKitCommon
+    - MLKitFaceDetection
+    - MLKitImageLabeling
+    - MLKitImageLabelingCommon
+    - MLKitObjectDetectionCommon
     - MLKitTextRecognition
     - MLKitTextRecognitionChinese
     - MLKitTextRecognitionCommon
@@ -716,6 +756,7 @@ SPEC REPOS:
     - MLKitTextRecognitionJapanese
     - MLKitTextRecognitionKorean
     - MLKitVision
+    - MLKitVisionKit
     - nanopb
     - OpenSSL-Universal
     - PromisesObjC
@@ -820,10 +861,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNMLKitFaceDetection:
+    :path: "../node_modules/@react-native-ml-kit/face-detection"
+  RNMLKitImageLabeling:
+    :path: "../node_modules/@react-native-ml-kit/image-labeling"
   RNMLKitTextRecognition:
     :path: "../node_modules/@react-native-ml-kit/text-recognition"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -862,6 +909,10 @@ SPEC CHECKSUMS:
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   MLImage: 7bb7c4264164ade9bf64f679b40fb29c8f33ee9b
   MLKitCommon: c1b791c3e667091918d91bda4bba69a91011e390
+  MLKitFaceDetection: 4981488f71ea8ed718cda692a29ab562637d9ae5
+  MLKitImageLabeling: 9fcdbbfbc454f22009c10015c403ac6319385cdf
+  MLKitImageLabelingCommon: 79ffbc10bd0c3a6407aa423aeb076f76a8883e15
+  MLKitObjectDetectionCommon: 424e43365d7ef7dd7005a4799e5303eeb4287fec
   MLKitTextRecognition: 9ff0c843f2723d31d4bdd0c0d17a0a18382ed23e
   MLKitTextRecognitionChinese: 1c2d90260b0ee2b5541bb6ce3b60fa5fed66a2a5
   MLKitTextRecognitionCommon: 0d48930fee25cce9d52d0ba217490d4797061aa2
@@ -869,6 +920,7 @@ SPEC CHECKSUMS:
   MLKitTextRecognitionJapanese: bbcaa15796ca9a1f42e3191e57468beb51b1035e
   MLKitTextRecognitionKorean: 8de40a4e5081242a7a83187583a3a7b57b5a703b
   MLKitVision: 8baa5f46ee3352614169b85250574fde38c36f49
+  MLKitVisionKit: 5b5472d40ffc143bda693ba20a3cff44fe627d41
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
@@ -905,12 +957,15 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 4941cc1b3cf08b792fbf666342c9fc95f1969035
   React-utils: b79f2411931f9d3ea5781404dcbb2fa8a837e13a
   ReactCommon: 4b2bdcb50a3543e1c2b2849ad44533686610826d
+  RNMLKitFaceDetection: 3aac39267a3d2b63049a13fb288c999faa2f188e
+  RNMLKitImageLabeling: 415b8bc3b4b0bb9ce1a034ace52f9ffa413b7711
   RNMLKitTextRecognition: b2ba09361f084db39655346a65d4c07327a34afd
   RNScreens: 85d3880b52d34db7b8eeebe2f1a0e807c05e69fa
+  RNSVG: d00c8f91c3cbf6d476451313a18f04d220d4f396
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: d61cbed610fc6ad1517e219c0c99da254ef3ee6d
+PODFILE CHECKSUM: be40a6268869493cafd6b43c561d618e05b70a00
 
 COCOAPODS: 1.12.1

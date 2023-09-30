@@ -17,6 +17,10 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<ParamList>) => {
         title="Face Detection"
         onPress={() => navigation.navigate('FaceDetection')}
       />
+      <ListTile
+        title="Image Labeling"
+        onPress={() => navigation.navigate('ImageLabeling')}
+      />
     </View>
   );
 };
