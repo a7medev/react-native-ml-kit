@@ -1,17 +1,11 @@
 import React, {useState} from 'react';
-import {Button, Image, StyleSheet, View, Switch, Text} from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import {Image, StyleSheet, View, Switch, Text} from 'react-native';
 import TextRecognition, {
   TextRecognitionResult,
 } from '@react-native-ml-kit/text-recognition';
 
 import TextMap from './TextMap';
-
-interface ImageDetails {
-  path: string;
-  height: number;
-  width: number;
-}
+import ChooseImageButton, {ImageDetails} from '../core/ChooseImageButton';
 
 const TextRecognitionScreen = () => {
   const [image, setImage] = useState<ImageDetails>();
@@ -19,29 +13,17 @@ const TextRecognitionScreen = () => {
   const [showBlocks, setShowBlocks] = useState(true);
   const [showWords, setShowWords] = useState(false);
 
-  const handlePress = async () => {
-    setResult(undefined);
-
-    const imageResult = await ImagePicker.launchImageLibraryAsync();
-    if (imageResult.canceled) {
-      return;
-    }
-
-    const asset = imageResult.assets![0];
-    const currentImage = {
-      path: asset.uri,
-      width: asset.width,
-      height: asset.height,
-    };
+  const handleChoose = async (currentImage: ImageDetails) => {
     setImage(currentImage);
 
     const _result = await TextRecognition.recognize(currentImage.path);
+
     setResult(_result);
   };
 
   return (
     <View style={styles.container}>
-      <Button title="Choose an Image" onPress={handlePress} />
+      <ChooseImageButton onChoose={handleChoose} />
 
       {image && (
         <View style={styles.imageContainer}>
