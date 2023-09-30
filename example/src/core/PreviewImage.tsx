@@ -11,10 +11,10 @@ const PreviewImage: React.FC<PreviewImageProps> = ({source}) => {
 
 const styles = StyleSheet.create({
   image: {
-    borderRadius: 10,
     aspectRatio: 1,
     width: '100%',
     objectFit: 'contain',
+    backgroundColor: 'black',
   },
 });
 
