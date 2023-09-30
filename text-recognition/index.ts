@@ -1,3 +1,5 @@
+import { NativeModules, Platform } from 'react-native';
+
 export interface Frame {
   width: number;
   height: number;
@@ -67,7 +69,24 @@ export enum TextRecognitionScript {
   KOREAN = 'Korean',
 }
 
-interface ITextRecognition {
+const LINKING_ERROR =
+  `The package '@react-native-ml-kit/text-recognition' doesn't seem to be linked. Make sure: \n\n` +
+  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
+  '- You rebuilt the app after installing the package\n' +
+  '- You are not using Expo managed workflow\n';
+
+const NativeTextRecognition = NativeModules.TextRecognition
+  ? NativeModules.TextRecognition
+  : new Proxy(
+      {},
+      {
+        get() {
+          throw new Error(LINKING_ERROR);
+        },
+      }
+    );
+
+const TextRecognition = {
   /**
    * Recognize text in the image
    *
@@ -84,10 +103,14 @@ interface ITextRecognition {
    */
   recognize: (
     imageURL: string,
-    script?: TranslateRecognitionScript = TranslateRecognitionScript.LATIN
-  ) => Promise<TextRecognitionResult>;
-}
+    script = TextRecognitionScript.LATIN
+  ): Promise<TextRecognitionResult> => {
+    if (Platform.OS === 'ios') {
+      return NativeTextRecognition.recognize(imageURL, script);
+    }
 
-declare const TextRecognition: ITextRecognition;
+    return NativeTextRecognition.recognize(imageURL);
+  },
+};
 
 export default TextRecognition;
