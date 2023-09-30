@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Text, StyleSheet, View, FlatList} from 'react-native';
 import BarcodeScanning, {Barcode} from '@react-native-ml-kit/barcode-scanning';
 import ChooseImageButton, {ImageDetails} from '../core/ChooseImageButton';
-import Label from '../core/Label';
+import LabelTile from '../core/LabelTile';
 import PreviewImage from '../core/PreviewImage';
 
 const BarcodeScanningScreen = () => {
@@ -32,9 +32,9 @@ const BarcodeScanningScreen = () => {
             style={styles.list}
             keyExtractor={barcode => `${barcode.format}-${barcode.value}`}
             renderItem={({item}) => (
-              <Label key={item.value}>
+              <LabelTile>
                 {item.value} - {item.format}
-              </Label>
+              </LabelTile>
             )}
           />
         </>

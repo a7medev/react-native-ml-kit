@@ -5,7 +5,7 @@ interface LabelProps {
   children: React.ReactNode;
 }
 
-const Label = ({children}: LabelProps) => {
+const LabelTile = ({children}: LabelProps) => {
   return (
     <View style={styles.label}>
       <Text>{children}</Text>
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Label;
+export default LabelTile;

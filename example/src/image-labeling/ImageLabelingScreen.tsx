@@ -1,13 +1,18 @@
 import React, {useState} from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet, View, FlatList} from 'react-native';
 import ImageLabeling, {Label} from '@react-native-ml-kit/image-labeling';
 import ChooseImageButton, {ImageDetails} from '../core/ChooseImageButton';
+import PreviewImage from '../core/PreviewImage';
+import LabelTile from '../core/LabelTile';
 
 const ImageLabelingScreen = () => {
+  const [image, setImage] = useState<ImageDetails>();
   const [labels, setLabels] = useState<Label[]>([]);
 
-  const handleChoose = async (image: ImageDetails) => {
-    const result = await ImageLabeling.label(image.path);
+  const handleChoose = async (currentImage: ImageDetails) => {
+    setImage(currentImage);
+
+    const result = await ImageLabeling.label(currentImage.path);
 
     setLabels(result);
   };
@@ -16,15 +21,24 @@ const ImageLabelingScreen = () => {
     <View style={styles.container}>
       <ChooseImageButton onChoose={handleChoose} />
 
-      {labels.length > 0 && <Text style={styles.heading}>Labels</Text>}
+      {image && <PreviewImage source={image.path} />}
 
-      {labels.map(label => (
-        <View style={styles.label} key={label.text}>
-          <Text>
-            {label.text} - {(100 * label.confidence).toFixed(2)}%
-          </Text>
-        </View>
-      ))}
+      {labels.length > 0 && (
+        <>
+          <Text style={styles.heading}>labels</Text>
+
+          <FlatList
+            data={labels}
+            style={styles.list}
+            keyExtractor={label => label.text}
+            renderItem={({item}) => (
+              <LabelTile>
+                {item.text} - {(100 * item.confidence).toFixed(2)}%
+              </LabelTile>
+            )}
+          />
+        </>
+      )}
     </View>
   );
 };
@@ -35,13 +49,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  label: {
-    backgroundColor: '#ffff55',
+  list: {
+    width: '100%',
     padding: 10,
-    borderRadius: 5,
-    marginBottom: 5,
-    width: '90%',
-    alignItems: 'center',
   },
   heading: {
     fontSize: 20,
