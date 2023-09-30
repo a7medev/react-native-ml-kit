@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, View, Switch, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import FaceDetection, {Face} from '@react-native-ml-kit/face-detection';
 
 import FaceMap from './FaceMap';
 import ChooseImageButton, {ImageDetails} from '../core/ChooseImageButton';
 import OptionSwitch from '../core/OptionSwitch';
+import PreviewImage from '../core/PreviewImage';
 
 const FaceDetectionScreen = () => {
   const [image, setImage] = useState<ImageDetails>();
@@ -30,10 +31,7 @@ const FaceDetectionScreen = () => {
 
       {image && (
         <View style={styles.imageContainer}>
-          <Image
-            source={{uri: image.path}}
-            style={[styles.image, {height: image.height, width: image.width}]}
-          />
+          <PreviewImage source={image.path} />
 
           {faces.map(face => (
             <FaceMap
@@ -73,9 +71,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  image: {
-    borderRadius: 10,
   },
   imageContainer: {
     marginTop: 15,

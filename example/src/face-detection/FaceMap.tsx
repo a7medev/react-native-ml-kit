@@ -1,7 +1,8 @@
 import {Face, Point} from '@react-native-ml-kit/face-detection';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, useWindowDimensions} from 'react-native';
 import Svg, {Circle, Path, Rect} from 'react-native-svg';
+import {scaleFrame, scalePoint} from '../core/scaling';
 
 interface FaceMapProps {
   face: Face;
@@ -20,7 +21,19 @@ const FaceMap = ({
   showContours,
   showFrame,
 }: FaceMapProps) => {
-  const {frame, landmarks, contours} = face;
+  const screen = useWindowDimensions();
+  const scaledFrame = scaleFrame(width, height, screen.width);
+  const scaledPoint = scalePoint(width, height, screen.width);
+
+  const {landmarks, contours} = face;
+  const frame = scaledFrame(face.frame)!;
+
+  function pointsToPath(points: Point[]) {
+    return points
+      .map(scaledPoint)
+      .map(({x, y}, i) => `${i === 0 ? 'M' : 'L'} ${x} ${y} `)
+      .join(' ');
+  }
 
   return (
     <Svg style={styles.container} width={width} height={height}>
@@ -39,15 +52,11 @@ const FaceMap = ({
 
       {showLandmarks &&
         landmarks &&
-        Object.entries(landmarks).map(([key, landmark]) => (
-          <Circle
-            key={key}
-            r={3}
-            fill="yellow"
-            x={landmark.position.x}
-            y={landmark.position.y}
-          />
-        ))}
+        Object.entries(landmarks).map(([key, landmark]) => {
+          const {x, y} = scaledPoint(landmark.position);
+
+          return <Circle key={key} r={3} fill="yellow" x={x} y={y} />;
+        })}
 
       {showContours &&
         contours &&
@@ -55,16 +64,20 @@ const FaceMap = ({
           const points = contour.points;
           return (
             <React.Fragment key={key}>
-              {points.map(({x, y}, pointId) => (
-                <Circle
-                  key={`${pointId}-${x}-${y}`}
-                  x={x}
-                  y={y}
-                  r={2}
-                  fill="skyblue"
-                  opacity={0.5}
-                />
-              ))}
+              {points.map((point, pointId) => {
+                const {x, y} = scaledPoint(point);
+
+                return (
+                  <Circle
+                    key={`${pointId}-${x}-${y}`}
+                    x={x}
+                    y={y}
+                    r={2}
+                    fill="skyblue"
+                    opacity={0.5}
+                  />
+                );
+              })}
 
               <Path
                 d={pointsToPath(points)}
@@ -85,11 +98,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
-
-function pointsToPath(points: Point[]) {
-  return points
-    .map(({x, y}, i) => `${i === 0 ? 'M' : 'L'} ${x} ${y} `)
-    .join(' ');
-}
 
 export default FaceMap;

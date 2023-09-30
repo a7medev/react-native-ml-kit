@@ -1,4 +1,4 @@
-import {Frame, TextBlock} from '@react-native-ml-kit/text-recognition';
+import {TextBlock} from '@react-native-ml-kit/text-recognition';
 import React from 'react';
 import {
   Alert,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from 'react-native';
+import {scaleFrame} from '../core/scaling';
 
 interface TextMapProps {
   blocks: TextBlock[];
@@ -60,58 +61,5 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
 });
-
-function rotateFrame(frame: Frame): Frame {
-  return {
-    top: frame.left,
-    left: frame.top,
-    width: frame.height,
-    height: frame.width,
-  };
-}
-
-function scaleFramePortrait(
-  screenWidth: number,
-  imageWidth: number,
-  imageHeight: number,
-  frame: Frame,
-): Frame {
-  const shownHeight = screenWidth;
-  const shownWidth = (imageWidth / imageHeight) * screenWidth;
-  const leftOffset = (screenWidth - shownWidth) / 2;
-
-  return {
-    left: (shownWidth / imageWidth) * frame.left + leftOffset,
-    top: (shownHeight / imageHeight) * frame.top,
-    width: (shownWidth / imageWidth) * frame.width,
-    height: (shownHeight / imageHeight) * frame.height,
-  };
-}
-
-function scaleFrame(
-  imageWidth: number,
-  imageHeight: number,
-  screenWidth: number,
-) {
-  return function scaledFrame(frame?: Frame): Frame | undefined {
-    if (!frame) {
-      return;
-    }
-
-    const portrait = imageHeight > imageWidth;
-    if (portrait) {
-      return scaleFramePortrait(screenWidth, imageWidth, imageHeight, frame);
-    } else {
-      return rotateFrame(
-        scaleFramePortrait(
-          screenWidth,
-          imageHeight,
-          imageWidth,
-          rotateFrame(frame),
-        ),
-      );
-    }
-  };
-}
 
 export default TextMap;
