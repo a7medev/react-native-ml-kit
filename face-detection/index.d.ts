@@ -6,7 +6,8 @@ export interface Point {
 export interface Frame {
   width: number;
   height: number;
-  origin: Point;
+  top: number;
+  left: number;
 }
 
 export interface Landmark {
