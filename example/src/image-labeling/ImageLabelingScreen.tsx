@@ -3,7 +3,7 @@ import {Text, StyleSheet, View} from 'react-native';
 import ImageLabeling, {Label} from '@react-native-ml-kit/image-labeling';
 import ChooseImageButton, {ImageDetails} from '../core/ChooseImageButton';
 
-const App = () => {
+const ImageLabelingScreen = () => {
   const [labels, setLabels] = useState<Label[]>([]);
 
   const handleChoose = async (image: ImageDetails) => {
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default ImageLabelingScreen;

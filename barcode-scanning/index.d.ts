@@ -16,7 +16,7 @@ export enum BarcodeFormat {
   AZTEC = 4096,
 }
 
-interface Barcode {
+export interface Barcode {
   format: BarcodeFormat;
   value: string;
 }

@@ -5,10 +5,12 @@ import TextRecognitionScreen from './text-recognition/TextRecognitionScreen';
 import FaceDetectionScreen from './face-detection/FaceDetectionScreen';
 import ImageLabelingScreen from './image-labeling/ImageLabelingScreen';
 import HomeScreen from './core/HomeScreen';
+import BarcodeScanningScreen from './barcode-scanning/BarcodeScanningScreen';
 
 export type ParamList = {
   Home: undefined;
   TextRecognition: undefined;
+  BarcodeScanning: undefined;
   FaceDetection: undefined;
   ImageLabeling: undefined;
 };
@@ -21,14 +23,19 @@ const App: React.FC = () => {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen
-          name="FaceDetection"
-          component={FaceDetectionScreen}
-          options={{title: 'Face Detection'}}
-        />
-        <Stack.Screen
           name="TextRecognition"
           component={TextRecognitionScreen}
           options={{title: 'Text Recognition'}}
+        />
+        <Stack.Screen
+          name="BarcodeScanning"
+          component={BarcodeScanningScreen}
+          options={{title: 'Barcode Scanning'}}
+        />
+        <Stack.Screen
+          name="FaceDetection"
+          component={FaceDetectionScreen}
+          options={{title: 'Face Detection'}}
         />
         <Stack.Screen
           name="ImageLabeling"

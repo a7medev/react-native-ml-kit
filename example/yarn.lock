@@ -2068,6 +2068,10 @@
     prompts "^2.4.0"
     semver "^7.5.2"
 
+"@react-native-ml-kit/barcode-scanning@link:../barcode-scanning":
+  version "0.0.0"
+  uid ""
+
 "@react-native-ml-kit/face-detection@link:../face-detection":
   version "0.0.0"
   uid ""

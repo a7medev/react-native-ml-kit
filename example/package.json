@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-ml-kit/barcode-scanning": "link:../barcode-scanning",
     "@react-native-ml-kit/face-detection": "link:../face-detection",
     "@react-native-ml-kit/image-labeling": "link:../image-labeling",
     "@react-native-ml-kit/text-recognition": "link:../text-recognition",
