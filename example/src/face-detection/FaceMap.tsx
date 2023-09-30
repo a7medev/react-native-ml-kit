@@ -9,7 +9,7 @@ interface FaceMapProps {
   height: number;
   showLandmarks: boolean;
   showContours: boolean;
-  hideFrame: boolean;
+  showFrame: boolean;
 }
 
 const FaceMap = ({
@@ -18,13 +18,13 @@ const FaceMap = ({
   height,
   showLandmarks,
   showContours,
-  hideFrame,
+  showFrame,
 }: FaceMapProps) => {
   const {frame, landmarks, contours} = face;
 
   return (
     <Svg style={styles.container} width={width} height={height}>
-      {!hideFrame && (
+      {showFrame && (
         <Rect
           stroke="white"
           fill="transparent"
@@ -44,8 +44,8 @@ const FaceMap = ({
             key={key}
             r={3}
             fill="yellow"
-            x={landmark.left}
-            y={landmark.top}
+            x={landmark.position.x}
+            y={landmark.position.y}
           />
         ))}
 

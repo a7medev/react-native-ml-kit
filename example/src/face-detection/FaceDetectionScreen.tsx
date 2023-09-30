@@ -41,14 +41,14 @@ const FaceDetectionScreen = () => {
               face={face}
               width={image.width}
               height={image.height}
-              hideFrame={showFrame}
+              showFrame={showFrame}
               showContours={showContours}
               showLandmarks={showLandmarks}
             />
           ))}
 
           <OptionSwitch
-            label="Hide Frame"
+            label="Show Frame"
             value={showFrame}
             onChange={setShowFrame}
           />
