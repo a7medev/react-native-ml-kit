@@ -4,6 +4,7 @@ import FaceDetection, {Face} from '@react-native-ml-kit/face-detection';
 
 import FaceMap from './FaceMap';
 import ChooseImageButton, {ImageDetails} from '../core/ChooseImageButton';
+import OptionSwitch from '../core/OptionSwitch';
 
 const FaceDetectionScreen = () => {
   const [image, setImage] = useState<ImageDetails>();
@@ -46,18 +47,21 @@ const FaceDetectionScreen = () => {
             />
           ))}
 
-          <View style={styles.switchContainer}>
-            <Switch value={showFrame} onValueChange={setShowFrame} />
-            <Text style={styles.switchLabel}>Hide Frame</Text>
-          </View>
-          <View style={styles.switchContainer}>
-            <Switch value={showLandmarks} onValueChange={setShowLandmarks} />
-            <Text style={styles.switchLabel}>Show Landmarks</Text>
-          </View>
-          <View style={styles.switchContainer}>
-            <Switch value={showContours} onValueChange={setShowContours} />
-            <Text style={styles.switchLabel}>Show Contours</Text>
-          </View>
+          <OptionSwitch
+            label="Hide Frame"
+            value={showFrame}
+            onChange={setShowFrame}
+          />
+          <OptionSwitch
+            label="Show Landmarks"
+            value={showLandmarks}
+            onChange={setShowLandmarks}
+          />
+          <OptionSwitch
+            label="Show Contours"
+            value={showContours}
+            onChange={setShowContours}
+          />
         </View>
       )}
     </View>
@@ -76,14 +80,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginTop: 15,
     marginBottom: 20,
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  switchLabel: {
-    color: '#333',
   },
 });
 
