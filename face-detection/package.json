@@ -3,8 +3,7 @@
   "title": "React Native MLKit Face Detection",
   "version": "1.2.0",
   "description": "React Native On-Device Face Detection w/ Google ML Kit",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "index.ts",
   "files": [
     "README.md",
     "android",
@@ -34,5 +33,8 @@
   "peerDependencies": {
     "react": ">=16.8.1",
     "react-native": ">=0.60.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "@types/react-native": "^0.72.3"
   }
 }
