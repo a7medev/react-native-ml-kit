@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -23,6 +24,11 @@ import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.TextRecognizerOptionsInterface;
+import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions;
+import com.google.mlkit.vision.text.devanagari.DevanagariTextRecognizerOptions;
+import com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions;
+import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import java.io.IOException;
@@ -118,7 +124,7 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
         if (block.getBoundingBox() != null) {
             map.putMap("frame", rectToMap(block.getBoundingBox()));
         }
-		if (block.getCornerPoints() != null) {
+        if (block.getCornerPoints() != null) {
 			map.putArray("cornerPoints", cornerPointsToMap(block.getCornerPoints()));
 		}
 
@@ -132,12 +138,33 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
         return map;
     }
 
+    @NonNull
+    TextRecognizerOptionsInterface getScriptTextRecognizerOptions(@Nullable String script) {
+        if (script == null) {
+            return TextRecognizerOptions.DEFAULT_OPTIONS;
+        }
+
+        switch (script) {
+            case "Chinese":
+                return new ChineseTextRecognizerOptions.Builder().build();
+            case "Devanagari":
+                return new DevanagariTextRecognizerOptions.Builder().build();
+            case "Japanese":
+                return new JapaneseTextRecognizerOptions.Builder().build();
+            case "Korean":
+                return new KoreanTextRecognizerOptions.Builder().build();
+            default:
+                return TextRecognizerOptions.DEFAULT_OPTIONS;
+        }
+    }
+
     @ReactMethod
-    public void recognize(String url, final Promise promise) {
+    public void recognize(String url, String script, final Promise promise) {
         InputImage image;
         try {
             image = getInputImage(this.getReactApplicationContext(), url);
-            TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+            TextRecognizerOptionsInterface options = getScriptTextRecognizerOptions(script);
+            TextRecognizer recognizer = TextRecognition.getClient(options);
             recognizer.process(image)
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
                         @Override

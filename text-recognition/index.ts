@@ -88,16 +88,12 @@ const NativeTextRecognition = NativeModules.TextRecognition
 
 const TextRecognition = {
   /**
-   * Recognize text in the image
+   * Recognize text in the image.
    *
-   * @param imageURL The URL/Path of the image to process
+   * @param imageURL The URL/path of the image to process.
    *
-   * @param [script] The language to use for non-latin
-   * text recognition. The default is set to Latin scripts. Available scripts:
-   * - Chinese
-   * - Devanagari
-   * - Japanese
-   * - Korean
+   * @param [script=TextRecognitionScript.LATIN] The language script to recognize.
+   * Supported languages are Latin, Chinese, Devanagari, Japanese, and Korean.
    *
    * @returns Text recognition result
    */
@@ -105,11 +101,7 @@ const TextRecognition = {
     imageURL: string,
     script = TextRecognitionScript.LATIN
   ): Promise<TextRecognitionResult> => {
-    if (Platform.OS === 'ios') {
-      return NativeTextRecognition.recognize(imageURL, script);
-    }
-
-    return NativeTextRecognition.recognize(imageURL);
+    return NativeTextRecognition.recognize(imageURL, script);
   },
 };
 
