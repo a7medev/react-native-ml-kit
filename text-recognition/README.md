@@ -41,3 +41,17 @@ for (let block of result.blocks) {
   }
 }
 ```
+
+You can also recognize text in scripts other than Latin by specifying the needed script as below:
+
+```js
+import TextRecognition, {
+  TextRecognitionScript,
+} from '@react-native-ml-kit/text-recognition';
+
+const result = await TextRecognition.recognize(
+  imageURL,
+  // Script for Japanese, you can also use Chinese, Korean, Divanagari and of course Latin.
+  TextRecognitionScript.JAPANESE
+);
+```
