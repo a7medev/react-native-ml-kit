@@ -17,7 +17,7 @@ export interface Language {
   languageCode: string;
 }
 
-type CornerPoints = readonly [Point, Point, Point, Point];
+export type CornerPoints = readonly [Point, Point, Point, Point];
 
 export interface TextElement {
   /** Recognized text of the element (word) */
