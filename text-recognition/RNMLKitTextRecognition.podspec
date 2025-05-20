@@ -22,14 +22,14 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   # To recognize Latin script
-  s.dependency 'GoogleMLKit/TextRecognition', '6.0.0'
+  s.dependency 'GoogleMLKit/TextRecognition', '8.0.0'
   # To recognize Chinese script
-  s.dependency 'GoogleMLKit/TextRecognitionChinese', '6.0.0'
+  s.dependency 'GoogleMLKit/TextRecognitionChinese', '8.0.0'
   # To recognize Devanagari script
-  s.dependency 'GoogleMLKit/TextRecognitionDevanagari', '6.0.0'
+  s.dependency 'GoogleMLKit/TextRecognitionDevanagari', '8.0.0'
   # To recognize Japanese script
-  s.dependency 'GoogleMLKit/TextRecognitionJapanese', '6.0.0'
+  s.dependency 'GoogleMLKit/TextRecognitionJapanese', '8.0.0'
   # To recognize Korean script
-  s.dependency 'GoogleMLKit/TextRecognitionKorean', '6.0.0'
+  s.dependency 'GoogleMLKit/TextRecognitionKorean', '8.0.0'
 end
 
