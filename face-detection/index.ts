@@ -16,7 +16,7 @@ export interface Landmark {
   position: Point;
 }
 
-export interface Coutour {
+export interface Contour {
   points: Point[];
 }
 
@@ -55,7 +55,7 @@ export interface Face {
   rotationY: number;
   rotationZ: number;
   landmarks?: Record<LandmarkType, Landmark>;
-  contours?: Record<ContourType, Coutour>;
+  contours?: Record<ContourType, Contour>;
   smilingProbability?: number;
   leftEyeOpenProbability?: number;
   rightEyeOpenProbability?: number;
