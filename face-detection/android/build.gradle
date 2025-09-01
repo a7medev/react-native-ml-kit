@@ -61,5 +61,5 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
-    implementation 'com.google.mlkit:face-detection:16.1.5'
+    implementation 'com.google.mlkit:face-detection:16.1.7'
 }
