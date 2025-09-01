@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency "GoogleMLKit/LanguageID", "6.0.0"
+  s.dependency "GoogleMLKit/LanguageID", "8.0.0"
 end
 
