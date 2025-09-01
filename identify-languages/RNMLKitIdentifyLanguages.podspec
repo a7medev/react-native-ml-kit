@@ -14,13 +14,13 @@ Pod::Spec.new do |s|
   # optional - use expanded license entry instead:
   # s.license    = { :type => "MIT", :file => "LICENSE" }
   s.authors      = { "Ahmed Mahmoud" => "a7med.mahmoud2004@gmail.com" }
-  s.platforms    = { :ios => "9.0" }
+  s.platforms    = { :ios => "15.5" }
   s.source       = { :git => "https://github.com/a7med-mahmoud/RNMLKitIdentifyLanguages.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,c,cc,cpp,m,mm,swift}"
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency "GoogleMLKit/LanguageID", "6.0.0"
+  s.dependency "GoogleMLKit/LanguageID", "8.0.0"
 end
 
