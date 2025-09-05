@@ -9,10 +9,8 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(scan
-                  : (nonnull NSString *)url resolver
-                  : (RCTPromiseResolveBlock)resolve rejecter
-                  : (RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(scan : (nonnull NSString *)url resolver : (
+    RCTPromiseResolveBlock)resolve rejecter : (RCTPromiseRejectBlock)reject) {
   NSURL *_url = [NSURL URLWithString:url];
   NSData *imageData = [NSData dataWithContentsOfURL:_url];
   UIImage *image = [UIImage imageWithData:imageData];
@@ -31,19 +29,20 @@ RCT_EXPORT_METHOD(scan
 
           for (MLKBarcode *barcode in barcodes) {
             // Streamline format enum with Android
-            NSNumber* format;
+            NSNumber *format;
             switch (barcode.format) {
-                case MLKBarcodeFormatAll:
-                    format = @0; // Android uses 0 for "All"
-                case MLKBarcodeFormatUnknown:
-                    format = @-1; // Android used -1 for "Unknown"
-                default:
-                    format = @(barcode.format);
+            case MLKBarcodeFormatAll:
+              format = @0; // Android uses 0 for "All"
+            case MLKBarcodeFormatUnknown:
+              format = @-1; // Android used -1 for "Unknown"
+            default:
+              format = @(barcode.format);
             }
-              
+
             [result addObject:@{
-              @"value": barcode.displayValue,
-              @"format": format
+              @"value" : barcode.displayValue,
+              @"format" : format,
+              @"rawValue" : barcode.rawValue
             }];
           }
 

@@ -21,6 +21,7 @@ export enum BarcodeFormat {
 export interface Barcode {
   format: BarcodeFormat;
   value: string;
+  rawValue: string;
 }
 
 interface IBarcodeScanning {

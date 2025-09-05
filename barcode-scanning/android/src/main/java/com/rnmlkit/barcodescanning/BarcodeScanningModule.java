@@ -71,8 +71,9 @@ public class BarcodeScanningModule extends ReactContextBaseJavaModule {
                             WritableArray result = Arguments.createArray();
                             for (Barcode barcode : barcodes) {
                                 WritableMap map = Arguments.createMap();
-                                map.putString("value", barcode.getRawValue());
+                                map.putString("value", barcode.getDisplayValue());
                                 map.putDouble("format", barcode.getFormat());
+                                map.putString("rawValue", barcode.getRawValue());
                                 result.pushMap(map);
                             }
                             promise.resolve(result);
