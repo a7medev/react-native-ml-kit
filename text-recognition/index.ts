@@ -39,6 +39,10 @@ export interface TextLine {
   elements: TextElement[];
   /** Languages recognized in the line */
   recognizedLanguages: Language[];
+  /** Confidence score of the line */
+  confidenceScore: number;
+  /** Rotation degree of the line */
+  rotationDegree: number;
 }
 
 export interface TextBlock {
