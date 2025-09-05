@@ -42,7 +42,8 @@ RCT_EXPORT_METHOD(scan : (nonnull NSString *)url resolver : (
             [result addObject:@{
               @"value" : barcode.displayValue,
               @"format" : format,
-              @"rawValue" : barcode.rawValue
+              @"rawValue" : barcode.rawValue,
+              @"displayValue" : barcode.displayValue
             }];
           }
 
