@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
-import {Text, StyleSheet, View, FlatList} from 'react-native';
-import BarcodeScanning, {Barcode} from '@react-native-ml-kit/barcode-scanning';
-import ChooseImageButton, {ImageDetails} from '../core/ChooseImageButton';
+/* eslint-disable prettier/prettier */
+import React, { useState } from 'react';
+import { Text, StyleSheet, View, FlatList } from 'react-native';
+import BarcodeScanning, { Barcode } from '@react-native-ml-kit/barcode-scanning';
+import ChooseImageButton, { ImageDetails } from '../core/ChooseImageButton';
 import LabelTile from '../core/LabelTile';
 import PreviewImage from '../core/PreviewImage';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const BarcodeScanningScreen = () => {
   const [image, setImage] = useState<ImageDetails>();
@@ -30,10 +32,13 @@ const BarcodeScanningScreen = () => {
           <FlatList
             data={barcodes}
             style={styles.list}
-            keyExtractor={barcode => `${barcode.format}-${barcode.value}`}
-            renderItem={({item}) => (
+            keyExtractor={barcode =>
+              `${barcode.format}-${barcode.displayValue}-${barcode.rawValue}`
+            }
+            renderItem={({ item }) => (
               <LabelTile>
-                {item.value} - {item.format}
+                Raw Value - Format: {item.rawValue} - {item.format}
+                {'\n'}Display Value - Format: {item.displayValue} - {item.format}
               </LabelTile>
             )}
           />
