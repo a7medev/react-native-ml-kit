@@ -39,10 +39,16 @@ export interface TextLine {
   elements: TextElement[];
   /** Languages recognized in the line */
   recognizedLanguages: Language[];
-  /** Confidence score of the line */
-  confidenceScore: number;
-  /** Rotation degree of the line */
-  rotationDegree: number;
+  /** Confidence score of the line (Android only)
+   *
+   * @platform Android
+   * */
+  confidenceScore?: number;
+  /** Rotation degree of the line (Android only)
+   *
+   * @platform Android
+   * */
+  rotationDegree?: number;
 }
 
 export interface TextBlock {

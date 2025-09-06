@@ -89,22 +89,6 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
         return array;
     }
 
-    private ReadableArray rotationToMap(float rotation) {
-      WritableArray array = Arguments.createArray();
-      WritableMap map = Arguments.createMap();
-      map.putDouble("rotationDegree", (double) rotation);
-      array.pushMap(map);
-      return array;
-    }
-
-    private ReadableArray confidenceToMap(float confidence) {
-      WritableArray array = Arguments.createArray();
-      WritableMap map = Arguments.createMap();
-      map.putDouble("confidenceScore", (double) confidence);
-      array.pushMap(map);
-      return array;
-    }
-
     private ReadableMap lineToMap(Text.Line line) {
         WritableMap map = Arguments.createMap();
 
@@ -117,9 +101,9 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
 		}
         map.putArray("recognizedLanguages", langToMap(line.getRecognizedLanguage()));
 
-        map.putArray("confidenceScore", confidenceToMap(line.getConfidence()));
+        map.putDouble("confidenceScore", (double) line.getConfidence());
 
-        map.putArray("rotationAngle", rotationToMap(line.getAngle()));
+        map.putDouble("rotationDegree", (double) line.getAngle());
 
         WritableArray elements = Arguments.createArray();
         for (Text.Element element : line.getElements()) {
