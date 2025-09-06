@@ -45,7 +45,7 @@ export interface TextLine {
    * @platform Android
    */
   confidenceScore?: number;
-    /**
+  /**
    * Angle (in degrees, clockwise is positive, range is [-180, 180]) of the rotation of the recognized line.
    *
    * @platform Android
