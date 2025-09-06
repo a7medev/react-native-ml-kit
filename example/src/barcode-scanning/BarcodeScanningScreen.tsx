@@ -35,8 +35,7 @@ const BarcodeScanningScreen = () => {
             }
             renderItem={({ item }) => (
               <LabelTile>
-                Raw Value - Format: {item.rawValue} - {item.format}
-                {'\n'}Display Value - Format: {item.displayValue} - {item.format}
+                 {JSON.stringify(item, undefined, 2)}
               </LabelTile>
             )}
           />
