@@ -1,4 +1,4 @@
-import { NativeModules, Platform } from "react-native";
+import { NativeModules, Platform } from 'react-native';
 
 export enum BarcodeFormat {
   UNKNOWN = -1,
@@ -34,9 +34,9 @@ interface IBarcodeScanning {
 
 const LINKING_ERROR =
   `The package '@react-native-ml-kit/barcode-scanning' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: "" }) +
-  "- You rebuilt the app after installing the package\n" +
-  "- You are not using Expo managed workflow\n";
+  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
+  '- You rebuilt the app after installing the package\n' +
+  '- You are not using Expo managed workflow\n';
 
 const BarcodeScanning: IBarcodeScanning = NativeModules.BarcodeScanning
   ? NativeModules.BarcodeScanning
@@ -46,7 +46,7 @@ const BarcodeScanning: IBarcodeScanning = NativeModules.BarcodeScanning
         get() {
           throw new Error(LINKING_ERROR);
         },
-      },
+      }
     );
 
 export default BarcodeScanning;

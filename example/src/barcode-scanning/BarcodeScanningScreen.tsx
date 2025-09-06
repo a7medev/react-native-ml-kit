@@ -1,11 +1,9 @@
-/* eslint-disable prettier/prettier */
-import React, { useState } from 'react';
-import { Text, StyleSheet, View, FlatList } from 'react-native';
-import BarcodeScanning, { Barcode } from '@react-native-ml-kit/barcode-scanning';
-import ChooseImageButton, { ImageDetails } from '../core/ChooseImageButton';
+import React, {useState} from 'react';
+import {Text, StyleSheet, View, FlatList} from 'react-native';
+import BarcodeScanning, {Barcode} from '@react-native-ml-kit/barcode-scanning';
+import ChooseImageButton, {ImageDetails} from '../core/ChooseImageButton';
 import LabelTile from '../core/LabelTile';
 import PreviewImage from '../core/PreviewImage';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const BarcodeScanningScreen = () => {
   const [image, setImage] = useState<ImageDetails>();
