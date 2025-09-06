@@ -36,9 +36,9 @@ const TextMap = ({
               onPress={() =>
                 Alert.alert(
                   block.text,
-                  `Confidence Score and Rotation Degree of 1st line:
-                   \nConfidence Score: ${getConfidenceScore(block)}
-                   \nRotation Degree: ${getRotationDegree(block)}`,
+                  "Confidence score and rotation degree of 1st line\n\n" +
+                  `Confidence score: ${getConfidenceScore(block)}\n\n` +
+                  `Rotation degree: ${getRotationDegree(block)}`,
                 )
               }
               style={[styles.text, scaledFrame(block.frame)]}
