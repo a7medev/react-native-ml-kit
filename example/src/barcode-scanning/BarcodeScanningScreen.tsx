@@ -30,10 +30,12 @@ const BarcodeScanningScreen = () => {
           <FlatList
             data={barcodes}
             style={styles.list}
-            keyExtractor={barcode => `${barcode.format}-${barcode.value}`}
-            renderItem={({item}) => (
+            keyExtractor={barcode =>
+              `${barcode.format}-${barcode.displayValue}-${barcode.rawValue}`
+            }
+            renderItem={({ item }) => (
               <LabelTile>
-                {item.value} - {item.format}
+                 {JSON.stringify(item, undefined, 2)}
               </LabelTile>
             )}
           />

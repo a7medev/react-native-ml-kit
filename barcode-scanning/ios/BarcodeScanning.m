@@ -9,10 +9,9 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(scan
-                  : (nonnull NSString *)url resolver
-                  : (RCTPromiseResolveBlock)resolve rejecter
-                  : (RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(scan:(nonnull NSString *)url
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
   NSURL *_url = [NSURL URLWithString:url];
   NSData *imageData = [NSData dataWithContentsOfURL:_url];
   UIImage *image = [UIImage imageWithData:imageData];
@@ -40,10 +39,12 @@ RCT_EXPORT_METHOD(scan
                 default:
                     format = @(barcode.format);
             }
-              
+
             [result addObject:@{
-              @"value": barcode.displayValue,
-              @"format": format
+              @"value" : barcode.displayValue,
+              @"format" : format,
+              @"rawValue" : barcode.rawValue,
+              @"displayValue" : barcode.displayValue
             }];
           }
 

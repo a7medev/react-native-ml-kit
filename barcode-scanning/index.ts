@@ -20,7 +20,12 @@ export enum BarcodeFormat {
 
 export interface Barcode {
   format: BarcodeFormat;
+  /**
+   * @deprecated `value` is deprecated and will be removed in a future release please use `displayValue` or `rawValue` instead
+   */
   value: string;
+  rawValue: string;
+  displayValue: string;
 }
 
 interface IBarcodeScanning {
