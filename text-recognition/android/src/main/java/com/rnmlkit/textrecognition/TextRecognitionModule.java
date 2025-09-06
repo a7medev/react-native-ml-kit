@@ -101,6 +101,10 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
 		}
         map.putArray("recognizedLanguages", langToMap(line.getRecognizedLanguage()));
 
+        map.putDouble("confidenceScore", line.getConfidence());
+
+        map.putDouble("rotationDegree", line.getAngle());
+
         WritableArray elements = Arguments.createArray();
         for (Text.Element element : line.getElements()) {
             WritableMap el = Arguments.createMap();
