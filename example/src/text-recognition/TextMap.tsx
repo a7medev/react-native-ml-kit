@@ -33,7 +33,14 @@ const TextMap = ({
         <React.Fragment key={blockId}>
           {showBlocks && (
             <TouchableOpacity
-              onPress={() => Alert.alert(block.text)}
+              onPress={() =>
+                Alert.alert(
+                  block.text,
+                  "Confidence score and rotation degree of 1st line\n\n" +
+                  `Confidence score: ${getConfidenceScore(block)}\n\n` +
+                  `Rotation degree: ${getRotationDegree(block)}`,
+                )
+              }
               style={[styles.text, scaledFrame(block.frame)]}
             />
           )}
@@ -58,6 +65,14 @@ const TextMap = ({
       ))}
     </>
   );
+
+  function getRotationDegree(block: TextBlock) {
+    return block.lines[0]?.rotationDegree?.toFixed(2) ?? 0;
+  }
+
+  function getConfidenceScore(block: TextBlock) {
+    return block.lines[0]?.confidenceScore?.toFixed(2) ?? 0;
+  }
 };
 
 const styles = StyleSheet.create({

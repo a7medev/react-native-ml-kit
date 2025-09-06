@@ -39,6 +39,18 @@ export interface TextLine {
   elements: TextElement[];
   /** Languages recognized in the line */
   recognizedLanguages: Language[];
+  /**
+   * Confidence score of the line.
+   *
+   * @platform Android
+   */
+  confidenceScore?: number;
+  /**
+   * Angle (in degrees, clockwise is positive, range is [-180, 180]) of the rotation of the recognized line.
+   *
+   * @platform Android
+   */
+  rotationDegree?: number;
 }
 
 export interface TextBlock {
