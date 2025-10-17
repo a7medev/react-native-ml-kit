@@ -11,7 +11,7 @@ React Native On-Device Machine Learning w/ Google ML Kit
 | [Face Detection](./face-detection)         |   ✅    | ✅  |
 | [Text Recognition](./text-recognition)     |   ✅    | ✅  |
 | [Barcode Scanning](./barcode-scanning)     |   ✅    | ✅  |
-| [Translate Text](./translate-text)         |   ✅    | ❌  |
+| [Translate Text](./translate-text)         |   ✅    | ✅  |
 | Object Detection and Tracking              |   ❌    | ❌  |
 | Digital Ink Recognition                    |   ❌    | ❌  |
 | Smart Replies                              |   ❌    | ❌  |
