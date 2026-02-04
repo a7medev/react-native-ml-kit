@@ -1,0 +1,8 @@
+{
+  "label": "Text Recognition",
+  "position": 5,
+  "link": {
+    "type": "doc",
+    "id": "intro"
+  }
+}

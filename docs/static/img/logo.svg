@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="g" x1="120" y1="120" x2="420" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B57D0"/>
+      <stop offset="1" stop-color="#00C2FF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="64" y="64" width="384" height="384" rx="96" fill="white"/>
+  <rect x="64" y="64" width="384" height="384" rx="96" fill="url(#g)" opacity="0.12"/>
+
+  <!-- Brain (filled) -->
+  <path
+    d="M186 156
+       C150 156 128 180 128 210
+       C104 222 98 248 110 270
+       C92 288 94 316 116 332
+       C114 362 138 384 168 384
+       C182 404 212 410 236 392
+       C258 410 294 396 300 362
+       L300 172
+       C278 150 222 146 186 156Z"
+    fill="#0B57D0"/>
+
+  <!-- Brain grooves (simple + thick, so visible in favicon) -->
+  <g stroke="white" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <path d="M166 214 C146 206 146 188 168 182"/>
+    <path d="M156 270 C136 262 136 242 160 236"/>
+    <path d="M170 324 C150 314 150 294 174 288"/>
+    <path d="M214 238 C194 226 194 206 218 198"/>
+    <path d="M218 304 C198 292 198 272 222 264"/>
+  </g>
+
+  <!-- Divider -->
+  <path d="M312 150 V392" stroke="#0B57D0" stroke-width="26" stroke-linecap="round"/>
+
+  <!-- K arms -->
+  <path d="M328 256 L410 176" stroke="url(#g)" stroke-width="34" stroke-linecap="round"/>
+  <path d="M328 256 L410 336" stroke="url(#g)" stroke-width="34" stroke-linecap="round"/>
+
+  <!-- Nodes -->
+  <circle cx="410" cy="176" r="14" fill="white" stroke="url(#g)" stroke-width="10"/>
+  <circle cx="410" cy="336" r="14" fill="white" stroke="url(#g)" stroke-width="10"/>
+</svg>
