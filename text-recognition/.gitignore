@@ -1,3 +1,49 @@
+# ─── Node ────────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log
+yarn-error.log
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.pnp.*
+
+# ─── Jest ─────────────────────────────────────────────────────────────────────
+coverage/
+
+# ─── Android ──────────────────────────────────────────────────────────────────
+android/build/
+android/.gradle/
+android/local.properties
+android/generated/
+*.apk
+*.aab
+
+# ─── iOS ──────────────────────────────────────────────────────────────────────
+ios/build/
+ios/Pods/
+ios/*.xcworkspace
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# ─── Codegen (généré automatiquement au build, ne pas versionner) ─────────────
+android/src/main/jni/
+android/src/main/java/com/rnmlkit/textrecognition/NativeTextRecognitionSpec.java
+
+# ─── TypeScript ───────────────────────────────────────────────────────────────
+lib/
+dist/
+*.tsbuildinfo
+
+# ─── Éditeurs ─────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+
 # OSX
 #
 .DS_Store
@@ -40,3 +86,5 @@ local.properties
 buck-out/
 \.buckd/
 *.keystore
+
+message.txt
