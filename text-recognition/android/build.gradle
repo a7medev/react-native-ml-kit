@@ -1,74 +1,86 @@
-// These defaults should reflect the SDK versions used by
-// the minimum React Native version supported.
-def DEFAULT_COMPILE_SDK_VERSION = 28
-def DEFAULT_BUILD_TOOLS_VERSION = '28.0.3'
-def DEFAULT_MIN_SDK_VERSION = 16
-def DEFAULT_TARGET_SDK_VERSION = 28
+// android/build.gradle
+// Configuration Gradle pour supporter les deux architectures simultanément.
+//
+// Stratégie Android de rétrocompatibilité :
+//   Avec newArchEnabled=true  → compile les sources dans src/newarch/
+//   Sans newArchEnabled        → compile les sources dans src/oldarch/
+//
+// Cela évite d'utiliser des #ifdef (non disponibles en Java) et permet
+// d'avoir deux implémentations propres de TextRecognitionPackage.
 
-def safeExtGet(prop, fallback) {
-    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+buildscript {
+    ext.safeExtGet = { prop, fallback ->
+        rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+    }
 }
 
 apply plugin: 'com.android.library'
 
-buildscript {
-    // The Android Gradle plugin is only required when opening the android folder stand-alone.
-    // This avoids unnecessary downloads and potential conflicts when the library is included as a
-    // module dependency in an application project.
-    // ref: https://docs.gradle.org/current/userguide/tutorial_using_tasks.html#sec:build_script_external_dependencies
-    if (project == rootProject) {
-        repositories {
-            mavenCentral()
-            google()
-        }
-        dependencies {
-            // This should reflect the Gradle plugin version used by
-            // the minimum React Native version supported.
-            classpath 'com.android.tools.build:gradle:3.4.1'
-        }
-    }
+// ─── Détection de l'architecture active ──────────────────────────────────────
+// newArchEnabled est positionné dans gradle.properties de l'app utilisatrice :
+//   newArchEnabled=true   → New Architecture
+//   (absent ou false)     → Ancienne architecture
+def isNewArchitectureEnabled() {
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
+
+// Active le plugin React (Codegen) uniquement en New Architecture
+if (isNewArchitectureEnabled()) {
+    apply plugin: 'com.facebook.react'
 }
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
-    buildToolsVersion safeExtGet('buildToolsVersion', DEFAULT_BUILD_TOOLS_VERSION)
+    compileSdkVersion safeExtGet('compileSdkVersion', 33)
     defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', DEFAULT_MIN_SDK_VERSION)
-        targetSdkVersion safeExtGet('targetSdkVersion', DEFAULT_TARGET_SDK_VERSION)
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion safeExtGet('minSdkVersion', 21)
+        targetSdkVersion safeExtGet('targetSdkVersion', 33)
     }
-    lintOptions {
-        abortOnError false
+
+    sourceSets {
+        main {
+            // ─── Dual sourceset : le cœur de la stratégie ────────────────────
+            // Java srcDirs change selon l'archi :
+            //   newarch/ → TextRecognitionPackage extends TurboReactPackage
+            //   oldarch/ → TextRecognitionPackage implements ReactPackage
+            //
+            // TextRecognitionModule.java reste dans src/main/ car identique
+            // dans les deux cas (seule la classe parente change, gérée ici).
+            if (isNewArchitectureEnabled()) {
+                java.srcDirs += ['src/newarch']
+            } else {
+                java.srcDirs += ['src/oldarch']
+            }
+        }
     }
 }
 
-repositories {
-    mavenCentral()
-    // ref: https://www.baeldung.com/maven-local-repository
-    mavenLocal()
-    maven {
-        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-        url "$rootDir/../node_modules/react-native/android"
+// ─── Codegen (New Arch uniquement) ───────────────────────────────────────────
+if (isNewArchitectureEnabled()) {
+    react {
+        jsRootDir = file("../src/")          // Où trouver NativeTextRecognition.ts
+        libraryName = "TextRecognitionSpec"  // Nom du Spec (doit correspondre à codegenConfig.name)
+        codegenJavaPackageName = "com.rnmlkit.textrecognition"
     }
-    maven {
-        // Android JSC is installed from npm
-        url "$rootDir/../node_modules/jsc-android/dist"
-    }
-    google()
 }
 
 dependencies {
-    //noinspection GradleDynamicVersion
-    implementation 'com.facebook.react:react-native:+'  // From node_modules
-    // To recognize Latin script
-    implementation 'com.google.mlkit:text-recognition:16.0.1'
-    // To recognize Chinese script
-    implementation 'com.google.mlkit:text-recognition-chinese:16.0.1'
-    // To recognize Devanagari script
-    implementation 'com.google.mlkit:text-recognition-devanagari:16.0.1'
-    // To recognize Japanese script
-    implementation 'com.google.mlkit:text-recognition-japanese:16.0.1'
-    // To recognize Korean script
-    implementation 'com.google.mlkit:text-recognition-korean:16.0.1'
+    implementation 'com.facebook.react:react-native:+'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:19.0.0'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition-chinese:16.0.0'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition-devanagari:16.0.0'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition-japanese:16.0.0'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition-korean:16.0.0'
 }
+
+// ─── Structure de fichiers attendue ──────────────────────────────────────────
+//
+// android/
+// └── src/
+//     ├── main/java/com/rnmlkit/textrecognition/
+//     │   └── TextRecognitionModule.java      ← logique métier (commun aux deux archis)
+//     │
+//     ├── newarch/com/rnmlkit/textrecognition/
+//     │   └── TextRecognitionPackage.java     ← extends TurboReactPackage
+//     │
+//     └── oldarch/com/rnmlkit/textrecognition/
+//         └── TextRecognitionPackage.java     ← implements ReactPackage (original)

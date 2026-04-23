@@ -1,0 +1,30 @@
+// src/oldarch/com/rnmlkit/textrecognition/TextRecognitionPackage.java
+// Version ANCIENNE ARCHITECTURE — compilée uniquement si newArchEnabled != true.
+//
+// Identique au fichier original : implements ReactPackage.
+// Gradle charge ce fichier via le sourceset src/oldarch/ quand
+// la New Architecture n'est pas activée.
+
+package com.rnmlkit.textrecognition;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import com.facebook.react.ReactPackage;
+import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.uimanager.ViewManager;
+
+public class TextRecognitionPackage implements ReactPackage {
+
+    @Override
+    public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
+        return Arrays.<NativeModule>asList(new TextRecognitionModule(reactContext));
+    }
+
+    @Override
+    public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
+        return Collections.emptyList();
+    }
+}
